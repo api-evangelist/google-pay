@@ -1,0 +1,69 @@
+name: Google Pay API
+description: Google Pay APIs enable payment processing and digital wallet functionality for apps and websites
+image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
+tags:
+- payments
+- digital wallet
+- mobile payments
+- contactless payments
+created: '2024'
+modified: '2024'
+url: https://developers.google.com/pay/api
+specificationVersion: '0.16'
+apis:
+- name: Google Pay API
+  description: Enables integration of Google Pay payment method into mobile apps and websites
+  image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
+  humanURL: https://developers.google.com/pay
+  baseURL: https://pay.google.com/gp/v/
+  tags:
+  - payments
+  - checkout
+  - wallet
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/pay/api/web
+  - type: OpenAPI
+    url: https://developers.google.com/pay/api/web/reference/rest
+  - type: Authentication
+    url: https://developers.google.com/pay/api/web/guides/setup
+  - type: Errors
+    url: https://developers.google.com/pay/api/web/reference/error-codes
+  - type: Sandbox
+    url: https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist
+  contact:
+  - type: Support
+    url: https://developers.google.com/pay/api/web/support
+  - type: Twitter
+    url: https://twitter.com/googlepay
+- name: Google Wallet API
+  description: APIs for creating and managing passes for Google Wallet
+  humanURL: https://developers.google.com/wallet
+  baseURL: https://walletobjects.googleapis.com/
+  tags:
+  - wallet
+  - passes
+  - loyalty
+  - tickets
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/wallet/generic/rest
+  - type: OpenAPI
+    url: https://developers.google.com/wallet/generic/rest/v1
+  - type: Authentication
+    url: https://developers.google.com/wallet/generic/rest/prerequisites
+maintainers:
+- name: Google
+  email: google-pay-api-support@google.com
+  url: https://developers.google.com/pay
+common:
+- type: Brand Guidelines
+  url: https://developers.google.com/pay/api/web/guides/brand-guidelines
+- type: Terms of Service
+  url: https://payments.developers.google.com/terms/sellertos
+- type: Privacy Policy
+  url: https://policies.google.com/privacy
+- type: Getting Started
+  url: https://developers.google.com/pay/api/web/guides/tutorial
+- type: SDK
+  url: https://developers.google.com/pay/api/web/guides/resources
