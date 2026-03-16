@@ -1,15 +1,17 @@
+aid: google-pay
 name: Google Pay API
 description: Google Pay APIs enable payment processing and digital wallet functionality for apps and websites
 image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
-tags:
-- payments
-- digital wallet
-- mobile payments
-- contactless payments
-created: '2024'
-modified: '2026-03-04'
 url: https://developers.google.com/pay/api
-specificationVersion: '0.16'
+created: '2024-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+type: Index
+tags:
+  - Payments
+  - Digital Wallet
+  - Mobile Payments
+  - Contactless Payments
 apis:
 - name: Google Pay API
   description: >-
@@ -217,9 +219,8 @@ apis:
   - type: Getting Started
     url: https://developers.google.com/pay/api/universal-commerce-protocol/overview
 maintainers:
-- name: Kin Lane
+- FN: Kin Lane
   email: kin@apievangelist.com
-  url: https://developers.google.com/pay
 common:
 - type: Portal
   url: https://developers.google.com/pay
