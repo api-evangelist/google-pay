@@ -41,9 +41,9 @@ apis:
         url: https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist
       - type: Reference
         url: https://developers.google.com/pay/api/web/reference/client
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developers.google.com/pay/api/web/guides/tutorial
-      - type: Change Log
+      - type: ChangeLog
         url: https://developers.google.com/pay/api/web/support/release-notes
     contact:
       - type: Support
@@ -69,11 +69,11 @@ apis:
         url: https://developers.google.com/pay/api/android/overview
       - type: Reference
         url: https://developers.google.com/pay/api/android/reference/client
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developers.google.com/pay/api/android/guides/tutorial
       - type: Authentication
         url: https://developers.google.com/pay/api/android/guides/setup
-      - type: Change Log
+      - type: ChangeLog
         url: https://developers.google.com/pay/api/android/support/release-notes
       - type: Sandbox
         url: https://developers.google.com/pay/api/android/guides/test-and-deploy/integration-checklist
@@ -100,9 +100,9 @@ apis:
         url: https://developers.google.com/wallet/generic/rest/prerequisites
       - type: Reference
         url: https://developers.google.com/wallet/reference/rest
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developers.google.com/wallet/generic/getting-started/auth/rest
-      - type: Change Log
+      - type: ChangeLog
         url: https://developers.google.com/wallet/docs/release-notes
       - type: Client Libraries
         url: https://developers.google.com/wallet/generic/resources/libraries
@@ -159,7 +159,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/pay/issuers/apis/push-provisioning/server
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developers.google.com/pay/issuers/overview/get-started
   - name: Google Pay Payment Card Recognition API
     description: >-
@@ -197,7 +197,7 @@ apis:
         url: https://developers.google.com/pay/india/api/merchant-sdk/guides/overview
       - type: Reference
         url: https://developers.google.com/pay/india/api/merchant-sdk/reference/api
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developers.google.com/pay/india/api/merchant-sdk/guides/integration
       - type: Authentication
         url: https://developers.google.com/pay/india/api/merchant-sdk/guides/setup
@@ -218,7 +218,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/merchant/ucp/guides
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developers.google.com/pay/api/universal-commerce-protocol/overview
 maintainers:
   - FN: Kin Lane
@@ -228,25 +228,25 @@ common:
     url: https://developers.google.com/pay
   - type: Brand Guidelines
     url: https://developers.google.com/pay/api/web/guides/brand-guidelines
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://payments.developers.google.com/terms/sellertos
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://policies.google.com/privacy
-  - type: Getting Started
+  - type: GettingStarted
     url: https://developers.google.com/pay/api/web/guides/tutorial
   - type: SDK
     url: https://developers.google.com/pay/api/web/guides/resources
   - type: Console
     url: https://pay.google.com/business/console/
-  - type: Status
+  - type: StatusPage
     url: https://developers.google.com/pay/api/status
   - type: Support
     url: https://developers.google.com/pay/api/web/support
   - type: Blog
     url: https://developers.googleblog.com/
-  - type: Change Log
+  - type: ChangeLog
     url: https://developers.google.com/pay/api/web/support/release-notes
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/google-pay
   - type: FAQ
     url: https://developers.google.com/pay/api/web/support/faq
