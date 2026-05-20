@@ -224,6 +224,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/showcase/google-pay
   - type: Portal
     url: https://developers.google.com/pay
   - type: Brand Guidelines
