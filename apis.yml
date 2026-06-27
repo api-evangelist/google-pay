@@ -35,7 +35,7 @@ apis:
         url: https://developers.google.com/pay/api/web/reference/rest
       - type: Authentication
         url: https://developers.google.com/pay/api/web/guides/setup
-      - type: Errors
+      - type: ErrorCodes
         url: https://developers.google.com/pay/api/web/reference/error-codes
       - type: Sandbox
         url: https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist
@@ -236,7 +236,7 @@ common:
     url: https://policies.google.com/privacy
   - type: GettingStarted
     url: https://developers.google.com/pay/api/web/guides/tutorial
-  - type: SDK
+  - type: SDKs
     url: https://developers.google.com/pay/api/web/guides/resources
   - type: Console
     url: https://pay.google.com/business/console/
