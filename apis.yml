@@ -224,6 +224,10 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: VulnerabilityDisclosure
+    url: security/google-pay-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/google-pay-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/showcase/google-pay
   - type: Portal
