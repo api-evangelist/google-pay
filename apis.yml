@@ -102,6 +102,11 @@ apis:
       - Loyalty
       - Passes
       - Tickets
+      - Wallets
+    tags_raw:
+      - Loyalty
+      - Passes
+      - Tickets
       - Wallet
     properties:
       - type: Documentation
@@ -128,6 +133,10 @@ apis:
     humanURL: https://developers.google.com/pay/facilitated-transaction-event-v2/concepts/intro
     baseURL: https://pay.google.com/
     tags:
+      - Payment Integrators
+      - Payments
+      - Transaction
+    tags_raw:
       - Payment Integrators
       - Payments
       - Transactions
