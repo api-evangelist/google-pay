@@ -1,0 +1,71 @@
+specification: API Commons Error Catalog
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+format: vendor
+source: >-
+  https://developers.google.com/pay/api/web/reference/error-objects ·
+  https://developers.google.com/pay/api/web/support/troubleshooting ·
+  https://developers.google.com/pay/api/android/support/troubleshooting
+note: >-
+  Not RFC 9457. The Google Pay Web and Android client APIs reject a Promise/Task with a
+  PaymentsError object carrying two string fields. There is no application/problem+json surface
+  anywhere in the Google Pay documentation, and there is no OpenAPI to derive 4xx/5xx responses
+  from — every entry below was read from Google's published error reference.
+envelope:
+  name: PaymentsError
+  media_type: application/json (JavaScript object on a rejected Promise)
+  fields:
+    - name: statusCode
+      type: string
+      description: Short code describing the error type.
+    - name: statusMessage
+      type: string
+      description: >-
+        Developer-facing message with error details and correction steps. Google notes this
+        message is often not shown in the user-facing dialog — read the developer console.
+  source: https://developers.google.com/pay/api/web/reference/error-objects
+errors:
+  - code: BUYER_ACCOUNT_ERROR
+    title: Buyer account error
+    meaning: The current Google user is unable to provide payment information.
+    retryable: false
+    remediation: >-
+      Nothing the merchant integration can fix. Verify the shopper's Google account status and
+      payment eligibility; fall back to another payment method in the checkout.
+  - code: DEVELOPER_ERROR
+    title: Developer error
+    meaning: A passed parameter is improperly formatted.
+    retryable: false
+    remediation: >-
+      Read the browser developer console for the specific parameter; validate the
+      PaymentDataRequest / IsReadyToPayRequest structure against the request-objects reference.
+      This is the error an agent will hit most often when composing a request.
+  - code: MERCHANT_ACCOUNT_ERROR
+    title: Merchant account error
+    meaning: The site accessing the Google Pay API does not have the right permission.
+    retryable: false
+    remediation: >-
+      Check that the merchantId is correct and that the calling top-level domain is registered
+      against the Google Pay Business Profile and approved for PRODUCTION in the Google Pay &
+      Wallet Console. Contact Google Pay support if the registration looks correct.
+  - code: INTERNAL_ERROR
+    title: Internal error
+    meaning: General server error.
+    retryable: true
+    remediation: Retry the request; contact Google Pay support if it persists.
+counts:
+  documented: 4
+decline_codes:
+  published: false
+  note: >-
+    Checked for a Google Pay decline-code reference and found none. Google Pay is a wallet, not an
+    acquirer: authorisation decisions and decline reasons are returned by the merchant's payment
+    gateway/PSP after the PaymentMethodToken is decrypted, so the decline vocabulary belongs to
+    Stripe/Adyen/Braintree/Cybersource, not to Google. No errors/google-pay-decline-codes.yml was
+    written, and that absence is correct rather than a gap.
+related:
+  - https://developers.google.com/pay/api/web/support/troubleshooting
+  - https://developers.google.com/pay/api/android/support/troubleshooting

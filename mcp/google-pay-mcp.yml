@@ -1,0 +1,166 @@
+specification: API Commons MCP Server
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+name: Google Pay & Wallet Developer MCP server
+generated: '2026-09-12'
+method: probed
+status: published
+source: https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
+description: >-
+  Google's first-party remote MCP server for Google Pay and Google Wallet developers. It exposes
+  documentation search over the official Google Pay and Google Wallet docs plus live read and
+  write access to the caller's own merchant profiles, Google Pay integrations, Wallet pass
+  issuers and pass classes, merchant performance and error metrics, and merchant access control.
+deployment:
+  mode: remote
+  endpoint: https://paydeveloper.googleapis.com/mcp
+  auth: oauth
+  verified: probed
+  note: >-
+    Remote HTTP MCP server only — Google publishes no stdio/npx package for it. The client config
+    Google documents is a bare `url` entry (VS Code `servers`, Cursor `mcpServers`), with no
+    command/args. An anonymous POST of tools/list returns HTTP 200 with the full tool set; calling
+    a tool requires OAuth 2.0 (the server "does not accept API keys") and the IAM role
+    roles/mcp.toolUser.
+transport: streamable-http (JSON-RPC 2.0 over HTTPS)
+authentication:
+  type: oauth2
+  provider: https://accounts.google.com
+  api_keys_accepted: false
+  iam_role: roles/mcp.toolUser
+  scopes:
+    - https://www.googleapis.com/auth/paydeveloper.merchant
+    - https://www.googleapis.com/auth/paydeveloper.issuer.readonly
+  source: https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
+discovery:
+  tools_list:
+    method: POST
+    url: https://paydeveloper.googleapis.com/mcp
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    accept: application/json, text/event-stream
+    http_status: 200
+    anonymous: true
+    fetched: '2026-09-12'
+    file: google-pay-mcp-tools-list.json
+    note: >-
+      The saved file is the verbatim JSON-RPC response. Every tool below carries a real
+      inputSchema and outputSchema from that response — none of it was authored here.
+  well_known:
+    - path: /.well-known/oauth-protected-resource
+      status: 404
+    - path: /.well-known/oauth-authorization-server
+      status: 404
+tool_count: 13
+tools:
+  - name: search_documentation
+    category: documentation
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: [userQuery]
+    parameters: [languageCode, userQuery]
+    description: >-
+      Searches and retrieves the most relevant, up-to-date sections from the official Google Pay
+      and Google Wallet developer documentation and code samples.
+  - name: list_merchants
+    category: merchant
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: []
+    parameters: [view]
+  - name: list_google_pay_integrations
+    category: integration
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: [merchantId]
+    parameters: [merchantId]
+  - name: create_merchant
+    category: merchant
+    read_only: false
+    destructive: false
+    idempotent: false
+    required: [merchant]
+    parameters: [merchant]
+  - name: list_pass_issuers
+    category: wallet
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: []
+    parameters: []
+  - name: list_pass_classes
+    category: wallet
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: [issuerId]
+    parameters: [issuerId, passType, view]
+  - name: validate_pass_jwt
+    category: wallet
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: []
+    parameters: [passJson, passJwt]
+  - name: query_merchant_performance
+    category: analytics
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: [merchantId]
+    parameters: [merchantId, timeRange]
+  - name: query_merchant_error_metrics
+    category: analytics
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: [merchantId]
+    parameters: [merchantId, timeRange]
+  - name: update_merchant
+    category: merchant
+    read_only: false
+    destructive: false
+    idempotent: true
+    required: [merchantId]
+    parameters:
+      - corporateWebsiteUrl
+      - customerSupportEmail
+      - customerSupportPhone
+      - customerSupportWebsiteUrl
+      - displayName
+      - mcc
+      - merchantId
+  - name: list_principals
+    category: access-control
+    read_only: true
+    destructive: false
+    idempotent: true
+    required: [merchantId]
+    parameters: [merchantId]
+  - name: set_principal_role
+    category: access-control
+    read_only: false
+    destructive: true
+    idempotent: false
+    required: [merchantId, email, role]
+    parameters: [email, merchantId, role]
+  - name: delete_principal
+    category: access-control
+    read_only: false
+    destructive: true
+    idempotent: true
+    required: [merchantId, email]
+    parameters: [email, merchantId]
+annotations_note: >-
+  Every tool ships MCP annotations (readOnlyHint / destructiveHint / idempotentHint /
+  openWorldHint). 10 of 13 are read-only; set_principal_role and delete_principal are the two
+  tools Google flags destructiveHint: true. That is a machine-readable consequence signal most
+  MCP servers in this catalog do not publish.
+documentation:
+  - https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
+  - https://developers.google.com/pay/api/web/reference/mcp
+  - https://developers.google.com/wallet/reference/mcp
+  - https://developers.googleblog.com/supercharge-your-integration-workflow-with-the-google-pay-wallet-developer-mcp-server/

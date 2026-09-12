@@ -1,0 +1,153 @@
+specification: API Commons Conformance
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://developers.google.com/pay/api/web/guides/test-and-deploy/deploy-production-environment ·
+  https://developers.google.com/pay/api/web/guides/test-and-deploy/publish-your-integration ·
+  https://developers.google.com/pay/api/web/guides/resources/payment-data-cryptography ·
+  https://ucp.goog/.well-known/ucp.json (probed 200, 2026-09-12) ·
+  https://accounts.google.com/.well-known/openid-configuration (probed 200, 2026-09-12) ·
+  discovery/google-pay-walletobjects-v1-discovery.json
+note: >-
+  Only standards Google's own surfaces or documents declare are recorded. Nothing was asserted
+  from a marketing page or inferred from the payments sector.
+conformance:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      https://accounts.google.com/.well-known/oauth-authorization-server returns RFC 8414
+      authorization-server metadata (HTTP 200, 2026-09-12). Both the Google Wallet API and the
+      Google Pay & Wallet Developer MCP server authorise against it.
+    file: well-known/google-pay-accounts-oauth-authorization-server.json
+  - id: oidc
+    conforms: true
+    evidence: >-
+      https://accounts.google.com/.well-known/openid-configuration returns an OpenID Provider
+      configuration (HTTP 200, 2026-09-12) with issuer https://accounts.google.com.
+    file: well-known/google-pay-accounts-openid-configuration.json
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      No application/problem+json surface on any Google Pay endpoint. Client errors are a vendor
+      PaymentsError object; Wallet REST uses the Google JSON error envelope.
+  - id: json-schema-2020-12
+    conforms: true
+    evidence: >-
+      https://pay.google.com/gp/p/ucp/2026-01-23/schemas/config.json declares
+      $schema https://json-schema.org/draft/2020-12/schema and $id on pay.google.com — a
+      first-party Google Pay JSON Schema (HTTP 200, 2026-09-12).
+    file: json-schema/google-pay-ucp-payment-handler-config.json
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Google Wallet API Discovery document declares token-based pagination (maxResults + token
+      request params, pagination.nextPageToken response field) across the class/object list
+      methods.
+    file: discovery/google-pay-walletobjects-v1-discovery.json
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No idempotency key or replay-safe retry contract is published on any Google Pay surface.
+      See conventions/google-pay-conventions.yml (idempotency.coverage none).
+  - id: mcp
+    conforms: true
+    evidence: >-
+      https://paydeveloper.googleapis.com/mcp answers a JSON-RPC 2.0 tools/list with HTTP 200 and
+      13 tools carrying inputSchema, outputSchema and MCP annotations (probed 2026-09-12).
+    file: mcp/google-pay-mcp-tools-list.json
+  - id: jwk-rfc7517
+    conforms: true
+    evidence: >-
+      https://ucp.goog/.well-known/ucp.json publishes four ES256 P-256 JWKs in signing_keys[] and
+      keys[]; https://ucp.goog/profiles/ucp.json serves the same key set as a JWK Set.
+    file: well-known/google-pay-ucp-profile.json
+  - id: iso3166
+    conforms: true
+    evidence: >-
+      Release note 2025-11-01 added the FULL-ISO3166 format option to BillingAddressParameters and
+      the iso3166AdministrativeArea parameter to ShippingAddressParameters.
+      https://developers.google.com/pay/api/web/support/release-notes
+  - id: fhir
+    conforms: false
+    evidence: Not applicable — payments provider.
+  - id: scim
+    conforms: false
+    evidence: >-
+      Merchant access control is a bespoke principal/role surface on the MCP server
+      (list_principals / set_principal_role / delete_principal), not SCIM.
+domain_standards:
+  - id: ucp
+    name: Universal Commerce Protocol
+    version: '2026-04-08'
+    conforms: true
+    role: implementer and payment-handler author
+    evidence: >-
+      Google publishes its own UCP discovery profile at https://ucp.goog/.well-known/ucp.json
+      (HTTP 200, 2026-09-12). It declares dev.ucp.shopping over three transports (rest, embedded,
+      mcp), seven capabilities (cart, catalog.lookup, checkout, order, fulfillment, discount,
+      common.identity_linking), an order webhook at
+      shoppingdataintegration.googleapis.com/v1/webhooks/partners/ucp/events/order, and the
+      com.google.pay payment handler (id gpay_01_23, version 2026-01-23).
+    file: well-known/google-pay-ucp-profile.json
+    contract_location: >-
+      The UCP REST contract itself is published by the standard at
+      https://ucp.dev/2026-04-08/services/shopping/rest.openapi.json (OpenAPI 3.1.0, info.title
+      "UCP Shopping Service", HTTP 200, 2026-09-12). It is NOT saved into this repo: it belongs to
+      the Universal Commerce Protocol project, not to Google, and its servers[] base URL is
+      resolved per-merchant from each merchant's own /.well-known/ucp profile. Google's
+      first-party contribution to that contract is the payment-handler config schema at
+      pay.google.com, which IS saved here.
+  - id: ucp-payment-handler
+    name: UCP payment handler com.google.pay
+    version: '2026-01-23'
+    conforms: true
+    evidence: >-
+      https://pay.google.com/gp/p/ucp/2026-01-23 (specification, HTTP 200) and
+      https://pay.google.com/gp/p/ucp/2026-01-23/schemas/config.json (JSON Schema 2020-12,
+      HTTP 200) — both served from Google's own pay.google.com host. The schema requires
+      api_version (const 2), api_version_minor (const 0), environment (TEST|PRODUCTION),
+      merchant_info and allowed_payment_methods.
+    file: json-schema/google-pay-ucp-payment-handler-config.json
+  - id: w3c-payment-request
+    name: W3C Payment Request API
+    conforms: partial
+    evidence: >-
+      Google publishes react-native-make-payment against the native payment-request shape, and the
+      Android surface exposes PaymentsClient rather than the W3C interface. Recorded as partial
+      because Google documents the JavaScript PaymentsClient, not navigator.requestPayment, as the
+      supported web integration.
+compliance:
+  - name: PCI DSS
+    scope: conditional on integration type
+    published: true
+    evidence: >-
+      "Direct integration is exclusively available to merchants who are Payment Card Industry Data
+      Security Standard (PCI DSS) compliant, as validated by a Qualified Security Assessor." A
+      gateway integration keeps the merchant out of PCI scope because Google encrypts the payment
+      token to the gateway's key.
+      https://developers.google.com/pay/api/web/guides/test-and-deploy/deploy-production-environment
+    note: >-
+      This is a requirement Google places on the MERCHANT, and a statement that Google's gateway
+      path removes the merchant from scope. It is not a published Google Pay attestation document
+      or certificate — Google publishes no SOC 2 / ISO 27001 report for the Google Pay API surface
+      that this probe could reach.
+  - name: Payment tokenization (network tokens / DPAN)
+    published: true
+    evidence: >-
+      "Returned payment methods are either cards consisting of PAN, or tokenized cards consisting
+      of device PAN (DPAN) and cryptograms." https://developers.google.com/pay/api/faq
+  - name: ECIES payment data cryptography
+    published: true
+    evidence: >-
+      Google uses the Elliptic Curve Integrated Encryption Scheme to secure the payment method
+      token; protocol versions ECv1 and ECv2.
+      https://developers.google.com/pay/api/web/guides/resources/payment-data-cryptography
+trust_center:
+  published: false
+  note: >-
+    probe-security-programs.py found no Google Pay trust center. Google's product-level compliance
+    portal (cloud.google.com/security/compliance) covers Google Cloud, not the Google Pay API, and
+    attributing it to Google Pay would be a false claim. No TrustCenter pointer was wired.

@@ -1,0 +1,88 @@
+specification: API Commons Sandbox
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://developers.google.com/pay/api/web/guides/resources/test-card-suite ·
+  https://developers.google.com/pay/api/web/guides/resources/sample-tokens ·
+  https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist ·
+  https://developers.google.com/pay/api/web/guides/test-and-deploy/deploy-production-environment
+note: >-
+  Every value below is quoted from Google's own testing pages. Nothing was invented. Google warns
+  explicitly that the test suite exists only to exercise the payment sheet's behaviour and mock
+  its output format: "It doesn't provide data intended for use in production. Tokens that are sent
+  with these cards to a processor can result in an error."
+mode_selection:
+  mechanism: request field
+  field: environment
+  values:
+    - TEST
+    - PRODUCTION
+  set_on: PaymentsClient constructor
+  description: >-
+    There is no separate sandbox host and no separate test key. The same JavaScript/Android client
+    is switched by constructing PaymentsClient with environment TEST or PRODUCTION. TEST requires
+    no merchant approval; PRODUCTION requires an approved Google Pay Business Profile, a
+    registered top-level domain, and a real merchantId.
+test_credentials:
+  merchant_id:
+    value: some-merchant-id
+    note: >-
+      The placeholder merchantId Google's sample-tokens guide uses in TEST. In TEST the merchantId
+      is not validated.
+  prerequisite: >-
+    "Add at least one chargeable card to your Google account" before generating sample tokens; for
+    tokenized (DPAN) testing, install the Google Wallet app and add a supported payment method.
+test_cards:
+  gateway_cards:
+    description: >-
+      When a supported gateway is configured, the TEST payment sheet shows that gateway's own test
+      cards, linked to the gateway's documentation. Google lists 24+ supported gateways including
+      Stripe, Adyen, Braintree and Cybersource.
+    source: https://developers.google.com/pay/api/web/guides/resources/test-card-suite
+  mock_cards:
+    description: >-
+      For gateways without a test-card integration, Google shows mock Visa, Mastercard, Discover
+      and Amex cards using the PAN_ONLY authentication method with a single US billing address.
+      Since 2026-03-01 the gateway test cards additionally carry billing addresses from 27 markets.
+  sample_pans:
+    - network: VISA
+      pan: '4111111111111111'
+    - network: MASTERCARD
+      pan: '5555555555554444'
+    - network: AMEX
+      pan: '378282246310005'
+    - network: DISCOVER
+      pan: '6011111111111117'
+  sample_pans_note: >-
+    Published non-tokenized sample PANs from the sample-tokens guide. These are the industry
+    standard test PANs, republished by Google; they are not live card numbers.
+test_keys:
+  signing_keys_url: https://payments.developers.google.com/paymentmethodtoken/test/keys.json
+  description: >-
+    Sample tokens are signed with Google's TEST keys, published at the URL above. Tink users must
+    configure fetchSenderVerifyingKeysWith(GooglePaymentsPublicKeysManager.INSTANCE_TEST).
+  protocol_versions:
+    - ECv1
+    - ECv2
+  default: ECv2
+test_clocks:
+  available: false
+  note: No time simulation / test-clock facility is published for Google Pay.
+fixtures_and_triggers:
+  available: false
+  note: >-
+    No fixture generator or event-trigger tooling. The closest published tooling is the live demo
+    at https://developers.google.com/pay/api/web/guides/resources/demos and the automated
+    Puppeteer harness Google publishes at github.com/google-pay/automated-web-testing-puppeteer.
+promotion_to_production:
+  steps:
+    - Create a Google Pay Business Profile in the Google Pay & Wallet Console.
+    - Accept the Google Pay API Terms of Service and the Acceptable Use Policy.
+    - Register the top-level domain that calls the Google Pay API (over 50 FQDNs requires contacting Google first).
+    - Submit website screenshots showing the integration for review by the Google Pay team.
+    - After approval, set merchantId in MerchantInfo and construct PaymentsClient with environment PRODUCTION.
+  human_review_required: true
+  source: https://developers.google.com/pay/api/web/guides/test-and-deploy/deploy-production-environment

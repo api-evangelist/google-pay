@@ -1,0 +1,50 @@
+specification: API Commons OAuth Scopes
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+docs: https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
+source: >-
+  https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp (MCP scopes) ·
+  discovery/google-pay-walletobjects-v1-discovery.json auth.oauth2.scopes (Wallet API scope,
+  fetched from walletobjects.googleapis.com 2026-09-12)
+note: >-
+  derive-oauth-scopes.py returned nothing because there is no OpenAPI in the repo to derive from.
+  These three scopes were read from Google's own MCP setup page and from the Google Wallet API
+  Discovery document, which declares its scope set machine-readably.
+scopes:
+  - scope: https://www.googleapis.com/auth/paydeveloper.merchant
+    description: Manage Google Pay merchant data.
+    surface: Google Pay & Wallet Developer MCP server
+    grants:
+      - list_merchants
+      - create_merchant
+      - update_merchant
+      - list_google_pay_integrations
+      - query_merchant_performance
+      - query_merchant_error_metrics
+      - list_principals
+      - set_principal_role
+      - delete_principal
+    source: https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
+  - scope: https://www.googleapis.com/auth/paydeveloper.issuer.readonly
+    description: Read Google Wallet issuer data.
+    surface: Google Pay & Wallet Developer MCP server
+    read_only: true
+    grants:
+      - list_pass_issuers
+      - list_pass_classes
+    source: https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
+  - scope: https://www.googleapis.com/auth/wallet_object.issuer
+    description: >-
+      The single scope declared by the Google Wallet API Discovery document; covers all 99
+      walletobjects.* methods (class and object CRUD, issuer, permissions, smarttap, media, jwt).
+    surface: Google Wallet API (walletobjects.googleapis.com)
+    source: discovery/google-pay-walletobjects-v1-discovery.json
+scope_count: 3
+granularity_note: >-
+  The Wallet REST API is single-scope: one coarse scope authorises read AND write across every
+  pass type and the issuer/permissions surface. An agent cannot be granted read-only Wallet REST
+  access. The newer MCP surface is the only Google Pay surface that splits a read-only scope out
+  (paydeveloper.issuer.readonly).

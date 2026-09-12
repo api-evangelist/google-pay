@@ -1,0 +1,133 @@
+specification: API Commons Tool Crosswalk
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: derived
+source: >-
+  mcp/google-pay-mcp-tools-list.json (verbatim anonymous tools/list, 2026-09-12) bound against
+  discovery/google-pay-walletobjects-v1-discovery.json (Google Wallet API v1 Discovery document,
+  revision 20260911, fetched from walletobjects.googleapis.com)
+note: >-
+  Google publishes NO OpenAPI for any Google Pay surface. The only REST contract behind these
+  tools that Google publishes machine-readably is the Google Wallet API Discovery document, so
+  the `rest:` column carries Discovery method ids (walletobjects.<resource>.<verb>) rather than
+  OpenAPI operationIds. Merchant-profile, integration-status and metrics tools sit on
+  paydeveloper.googleapis.com, which serves no Discovery document and no OpenAPI (probed
+  2026-09-12, /$discovery/rest?version=v1 -> 404, /openapi.json -> 404) — those are recorded as
+  mcp_only, which is a real finding, not a gap in this crosswalk.
+surfaces:
+  mcp:
+    url: https://paydeveloper.googleapis.com/mcp
+    gated: false
+    note: tools/list answers anonymously (HTTP 200); tool invocation requires OAuth 2.0.
+  rest:
+    contract: discovery/google-pay-walletobjects-v1-discovery.json
+    format: Google API Discovery Document (not OpenAPI)
+    base_url: https://walletobjects.googleapis.com/
+    method_count: 99
+    gated: false
+  openapi:
+    present: false
+    note: no first-party OpenAPI published for Google Pay Web, Android, Wallet, or paydeveloper.
+  graphql:
+    present: false
+crosswalk:
+  - tool: list_pass_issuers
+    category: wallet
+    rest:
+      - walletobjects.issuer.list
+    binding: direct
+    confidence: high
+    note: >-
+      Discovery method GET walletobjects/v1/issuer lists the same issuer set the tool describes
+      as "all pass issuers registered in the Google Wallet business console".
+  - tool: list_pass_classes
+    category: wallet
+    rest:
+      - walletobjects.genericclass.list
+      - walletobjects.loyaltyclass.list
+      - walletobjects.offerclass.list
+      - walletobjects.giftcardclass.list
+      - walletobjects.eventticketclass.list
+      - walletobjects.flightclass.list
+      - walletobjects.transitclass.list
+    binding: composite
+    confidence: high
+    note: >-
+      One tool fans out across the seven per-pass-type class.list methods; the tool's passType
+      parameter selects which. Each REST method takes issuerId, matching the tool's required arg.
+  - tool: validate_pass_jwt
+    category: wallet
+    rest: []
+    binding: none
+    confidence: medium
+    note: >-
+      Validation-only. The Wallet REST surface has no validate method; the nearest REST behaviour
+      is the insert/patch call rejecting a malformed class or object. Recorded here rather than in
+      mcp_only because it validates the Wallet pass payload schema the REST contract defines.
+mcp_only:
+  - tool: search_documentation
+    reason: Documentation retrieval over the Google Pay/Wallet docs corpus. No REST equivalent.
+  - tool: list_merchants
+    reason: >-
+      Google Pay & Wallet Console merchant profiles. Served by paydeveloper.googleapis.com, which
+      publishes no Discovery document or OpenAPI.
+  - tool: create_merchant
+    reason: Console merchant creation; paydeveloper.googleapis.com, no published REST contract.
+  - tool: update_merchant
+    reason: Console merchant mutation; paydeveloper.googleapis.com, no published REST contract.
+  - tool: list_google_pay_integrations
+    reason: Integration status/config for a merchant; no published REST contract.
+  - tool: query_merchant_performance
+    reason: Aggregated post-integration performance metrics; no published REST contract.
+  - tool: query_merchant_error_metrics
+    reason: Per-merchant error metrics; no published REST contract.
+  - tool: list_principals
+    reason: Merchant access control listing; no published REST contract.
+  - tool: set_principal_role
+    reason: Merchant access control mutation (destructiveHint true); no published REST contract.
+  - tool: delete_principal
+    reason: Merchant access revocation (destructiveHint true); no published REST contract.
+rest_only_summary:
+  count: 91
+  note: >-
+    91 of the 99 Google Wallet Discovery methods have no MCP tool — every object-level CRUD
+    method (genericobject, loyaltyobject, eventticketobject, offerobject, giftcardobject,
+    flightobject, transitobject insert/get/patch/update/list/addmessage), issuer insert/update/
+    patch/get, permissions get/update, smarttap, media upload, and the jwt insert. The MCP server
+    is a developer-console and documentation surface, not a pass-issuance surface; issuing passes
+    still requires the Wallet REST API directly.
+rest_only:
+  - walletobjects.issuer.insert
+  - walletobjects.issuer.get
+  - walletobjects.issuer.update
+  - walletobjects.issuer.patch
+  - walletobjects.genericobject.insert
+  - walletobjects.genericobject.get
+  - walletobjects.genericobject.patch
+  - walletobjects.genericobject.update
+  - walletobjects.genericobject.list
+  - walletobjects.loyaltyobject.insert
+  - walletobjects.loyaltyobject.list
+  - walletobjects.eventticketobject.insert
+  - walletobjects.eventticketobject.list
+  - walletobjects.offerobject.insert
+  - walletobjects.offerobject.list
+  - walletobjects.giftcardobject.insert
+  - walletobjects.giftcardobject.list
+  - walletobjects.flightobject.insert
+  - walletobjects.flightobject.list
+  - walletobjects.transitobject.insert
+  - walletobjects.transitobject.list
+  - walletobjects.permissions.get
+  - walletobjects.permissions.update
+  - walletobjects.jwt.insert
+coverage:
+  mcp_tools: 13
+  mapped_to_rest: 2
+  mcp_only: 10
+  unmapped_validation_only: 1
+  rest_methods: 99
+  rest_methods_with_a_tool: 8
+  rest_only: 91

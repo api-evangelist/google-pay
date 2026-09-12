@@ -1,0 +1,60 @@
+specification: API Commons Lifecycle
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://developers.google.com/pay/api/status ·
+  https://developers.google.com/pay/api/web/support/release-notes ·
+  https://developers.google.com/pay/api/android/support/release-notes ·
+  https://developers.google.com/wallet/docs/release-notes (all probed 200, 2026-09-12)
+versioning:
+  scheme: explicit-major-minor-in-request
+  current: apiVersion 2 / apiVersionMinor 0
+  description: >-
+    The Google Pay client APIs version in the request body, not in a URL path: every
+    PaymentDataRequest and IsReadyToPayRequest carries apiVersion and apiVersionMinor. The
+    Google Pay UCP payment-handler config schema pins both with JSON Schema const — api_version
+    const 2, api_version_minor const 0 — which is the only machine-readable statement of the
+    current version Google publishes.
+  evidence: json-schema/google-pay-ucp-payment-handler-config.json
+  wallet_api_version: v1 (walletobjects), Discovery revision 20260911
+release_notes:
+  - surface: Google Pay API (Web)
+    url: https://developers.google.com/pay/api/web/support/release-notes
+    status: 200
+    dated: true
+  - surface: Google Pay API for Android
+    url: https://developers.google.com/pay/api/android/support/release-notes
+    status: 200
+    dated: true
+  - surface: Google Wallet API
+    url: https://developers.google.com/wallet/docs/release-notes
+    status: 200
+    dated: true
+status_page:
+  published: true
+  url: https://developers.google.com/pay/api/status
+  name: Google Pay API Status Dashboard
+  http_status: 200
+  checked: '2026-09-12'
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Searched the Google Pay support, release-notes and FAQ trees for a versioning or deprecation
+    policy and found none. Google announces changes in dated release notes, but publishes no
+    stated deprecation window, no sunset commitment, and returns no RFC 8594 Sunset/Deprecation
+    headers on any Google Pay surface. Because no policy is published, no `Deprecation` pointer
+    was wired into apis.yml — an absent policy must not be advertised as a present one.
+sla:
+  published: false
+  note: >-
+    No public SLA for the Google Pay API. The Google Pay API Terms of Service
+    (payments.developers.google.com/terms/sellertos) governs the relationship; it is a terms
+    document, not an availability commitment with credits.
+deprecated_operations:
+  count: 0
+  note: No OpenAPI in the repo to derive deprecated operations from.

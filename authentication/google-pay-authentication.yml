@@ -1,0 +1,104 @@
+specification: API Commons Authentication
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://developers.google.com/pay/api/web/guides/setup ·
+  https://developers.google.com/pay/api/web/guides/test-and-deploy/deploy-production-environment ·
+  https://developers.google.com/wallet/generic/rest/prerequisites ·
+  https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp ·
+  well-known/google-pay-accounts-openid-configuration.json (probed 2026-09-12)
+note: >-
+  derive-authentication.py found no securitySchemes because Google publishes no OpenAPI for any
+  Google Pay surface. This profile was read from Google's own setup and prerequisite pages and
+  from the live OpenID discovery document at accounts.google.com. There is no single Google Pay
+  auth model — the surfaces authenticate four different ways, which is the finding.
+schemes:
+  - id: merchant-registration
+    applies_to:
+      - Google Pay API (Web)
+      - Google Pay API for Android
+    type: none
+    description: >-
+      The Google Pay Web and Android client APIs carry no bearer credential at all. Authorisation
+      is an out-of-band merchant registration: a Google Pay Business Profile is created in the
+      Google Pay & Wallet Console, the top-level domain calling the API is registered against it,
+      the Google Pay API Terms of Service and Acceptable Use Policy are accepted, integration
+      screenshots are submitted for Google review, and only after approval may the client pass
+      environment PRODUCTION with a real merchantId in MerchantInfo.
+    credential_fields:
+      - merchantId
+      - merchantName
+    environments:
+      - TEST
+      - PRODUCTION
+    docs: https://developers.google.com/pay/api/web/guides/test-and-deploy/deploy-production-environment
+  - id: payment-token-cryptography
+    applies_to:
+      - Google Pay API (Web)
+      - Google Pay API for Android
+    type: message-signing
+    description: >-
+      Returned payment data is a signed and encrypted PaymentMethodToken. Google signs the token
+      with its own keys and encrypts to the merchant's or gateway's public key using ECIES
+      (Elliptic Curve Integrated Encryption Scheme). Protocol versions ECv1 and ECv2; ECv2 is the
+      default for new integrations. Direct (non-gateway) integration requires the merchant to be
+      PCI DSS compliant as validated by a Qualified Security Assessor.
+    key_material:
+      test_signing_keys: https://payments.developers.google.com/paymentmethodtoken/test/keys.json
+    docs: https://developers.google.com/pay/api/web/guides/resources/payment-data-cryptography
+  - id: oauth2-service-account
+    applies_to:
+      - Google Wallet API
+    type: oauth2
+    flows:
+      - jwt-bearer (Google service account)
+    scopes:
+      - https://www.googleapis.com/auth/wallet_object.issuer
+    token_endpoint: https://oauth2.googleapis.com/token
+    issuer: https://accounts.google.com
+    description: >-
+      Google Wallet REST calls against walletobjects.googleapis.com are authorised with a Google
+      Cloud service account key exchanged for an OAuth 2.0 access token. The single scope is the
+      one declared in the Wallet API Discovery document.
+    evidence: discovery/google-pay-walletobjects-v1-discovery.json (auth.oauth2.scopes)
+    docs: https://developers.google.com/wallet/generic/rest/prerequisites
+  - id: oauth2-mcp
+    applies_to:
+      - Google Pay & Wallet Developer MCP server
+    type: oauth2
+    flows:
+      - authorization_code
+    scopes:
+      - https://www.googleapis.com/auth/paydeveloper.merchant
+      - https://www.googleapis.com/auth/paydeveloper.issuer.readonly
+    iam_role: roles/mcp.toolUser
+    api_keys_accepted: false
+    issuer: https://accounts.google.com
+    description: >-
+      The MCP server at paydeveloper.googleapis.com authenticates with OAuth 2.0 client
+      credentials plus Google Cloud IAM. Google states explicitly that the server does not accept
+      API keys. tools/list is readable anonymously; tool invocation is not.
+    docs: https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
+  - id: ucp-profile-signing
+    applies_to:
+      - Google Universal Commerce Protocol
+    type: message-signing
+    algorithm: ES256
+    description: >-
+      Google's UCP discovery profile at ucp.goog publishes four ES256 (P-256) JWK signing keys in
+      both a signing_keys[] and a keys[] array, used to verify UCP payloads exchanged with
+      Google's commerce surfaces.
+    evidence: well-known/google-pay-ucp-profile.json
+    docs: https://developers.google.com/merchant/ucp/guides/ucp-profile
+authorization_server:
+  issuer: https://accounts.google.com
+  openid_configuration: https://accounts.google.com/.well-known/openid-configuration
+  oauth_authorization_server: https://accounts.google.com/.well-known/oauth-authorization-server
+  probed: '2026-09-12'
+  http_status: 200
+  files:
+    - well-known/google-pay-accounts-openid-configuration.json
+    - well-known/google-pay-accounts-oauth-authorization-server.json

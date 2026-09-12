@@ -1,0 +1,77 @@
+specification: API Commons Components
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://github.com/google-pay/google-pay-button ·
+  https://github.com/google-pay/compose-pay-button ·
+  https://github.com/google-pay/flutter-plugin ·
+  https://developers.google.com/pay/api/web/guides/resources/demos ·
+  https://developers.google.com/pay/api/web/guides/brand-guidelines
+note: >-
+  Google Pay is a client-side surface first: the primary integration artefact is a rendered button
+  and a hosted payment sheet, not a server SDK. These are the first-party embeddable components.
+families:
+  - family: Google Pay button
+    description: >-
+      The branded Google Pay button, published by Google in three framework flavours from a single
+      repository. Rendering the button is a Brand Guidelines requirement, not an optional nicety.
+    components:
+      - name: google-pay-button
+        kind: web component (custom element)
+        package: '@google-pay/button-element'
+        version: 4.1.0
+        docs: https://github.com/google-pay/google-pay-button
+      - name: GooglePayButton
+        kind: React component
+        package: '@google-pay/button-react'
+        version: 4.1.0
+      - name: google-pay-button (Angular)
+        kind: Angular component
+        package: '@google-pay/button-angular'
+        version: 4.1.0
+  - family: Android / Jetpack Compose
+    description: Native Android button surfaces for the Google Pay API for Android.
+    components:
+      - name: PayButton
+        kind: Jetpack Compose composable
+        package: com.google.pay.button:compose-pay-button
+        version: 1.1.0
+        docs: https://github.com/google-pay/compose-pay-button
+  - family: Cross-platform
+    components:
+      - name: GooglePayButton (Flutter)
+        kind: Flutter widget
+        package: pay
+        version: 3.3.0
+        docs: https://pub.dev/packages/pay
+      - name: react-native-make-payment
+        kind: React Native module
+        package: null
+        docs: https://github.com/google-pay/react-native-make-payment
+        note: Distributed from GitHub only; no npm release (registry 404, checked 2026-09-12).
+hosted_surfaces:
+  - name: Google Pay payment sheet
+    description: >-
+      The payment sheet itself is hosted and rendered by Google (pay.google.com), not by the
+      merchant. The merchant never touches card data in a gateway integration.
+  - name: Google Pay & Wallet Console
+    url: https://pay.google.com/business/console/
+    description: Hosted merchant console for business profiles, domain registration and encryption keys.
+loaders:
+  - name: Google Pay JavaScript library
+    url: https://pay.google.com/gp/p/js/pay.js
+    description: >-
+      The script tag every web integration loads; defines google.payments.api.PaymentsClient.
+    note: >-
+      Unpinned by design — the URL carries no version and always serves the current library, so a
+      consumer cannot tell which build they are getting. The request-level apiVersion field, not
+      the script URL, is the version contract.
+demos:
+  - https://developers.google.com/pay/api/web/guides/resources/demos
+  - https://github.com/google-pay/gpay-live-demo
+  - https://github.com/google-pay/react-store
+  - https://github.com/google-pay/angular-store
+  - https://github.com/google-pay/shop-paydemo

@@ -1,0 +1,48 @@
+specification: API Commons ChangeLog
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+source: https://developers.google.com/pay/api/web/support/release-notes
+scheme: dated-entries
+note: >-
+  Google publishes no version numbers in its Google Pay release notes — entries are keyed by date
+  only. The request itself carries apiVersion 2 / apiVersionMinor 0, unchanged across the window
+  below. Recent window only; the full history lives at the source URL.
+current_version: apiVersion 2 / apiVersionMinor 0
+entries:
+  - date: '2026-08-12'
+    breaking: false
+    additions:
+      - >-
+        Added a `nonce` parameter to the PaymentOptions object so merchants can apply a Content
+        Security Policy nonce attribute to all dynamically injected <style> and <script> elements.
+    highlights: CSP-compatible integration.
+  - date: '2026-08-05'
+    breaking: false
+    additions:
+      - >-
+        Introduced `cardFundingSource` on the CardInfo response, returning UNKNOWN, CREDIT, DEBIT
+        or PREPAID so merchants can calculate surcharges and dynamic pricing.
+    highlights: Funding-source classification exposed to merchants.
+  - date: '2026-03-01'
+    breaking: false
+    additions:
+      - >-
+        Expanded the gateway test-card suite to support billing addresses from 27 markets instead
+        of US-only, so TEST-environment flows can be exercised with country-specific addresses.
+    highlights: Sandbox coverage widened beyond the US.
+  - date: '2025-11-01'
+    breaking: false
+    additions:
+      - >-
+        Added the FULL-ISO3166 format option to BillingAddressParameters and a new `format`
+        property on ShippingAddressParameters, introducing the `iso3166AdministrativeArea`
+        parameter.
+    highlights: ISO 3166 administrative-area addressing.
+other_changelogs:
+  - surface: Google Pay API for Android
+    url: https://developers.google.com/pay/api/android/support/release-notes
+  - surface: Google Wallet API
+    url: https://developers.google.com/wallet/docs/release-notes

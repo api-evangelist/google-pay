@@ -1,0 +1,32 @@
+specification: API Commons Agent Skills
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: generated
+source: >-
+  Grounded in mcp/google-pay-mcp-tools-list.json — the verbatim anonymous tools/list response from
+  https://paydeveloper.googleapis.com/mcp (HTTP 200, 2026-09-12) — cross-checked against
+  discovery/google-pay-walletobjects-v1-discovery.json.
+note: >-
+  Google publishes no OpenAPI for any Google Pay surface, so these skills are grounded in real MCP
+  tool names, their real required/optional parameters, and the real MCP annotations the server
+  publishes — not in invented operationIds. Google publishes no AGENTS.md or skills of its own;
+  searched 2026-09-12.
+skills:
+  - name: google-pay-merchant-onboarding
+    file: google-pay-merchant-onboarding.md
+    description: Create and maintain a Google Pay merchant business profile and read its integrations.
+    operations: [create_merchant, list_merchants, update_merchant, list_google_pay_integrations, search_documentation]
+    writes: true
+  - name: google-pay-integration-health
+    file: google-pay-integration-health.md
+    description: Read post-integration performance and error metrics and find the documented fix.
+    operations: [query_merchant_performance, query_merchant_error_metrics, list_google_pay_integrations, search_documentation]
+    writes: false
+  - name: google-pay-wallet-pass-inventory
+    file: google-pay-wallet-pass-inventory.md
+    description: Inventory Wallet issuers and pass classes and validate a pass JWT before issuing.
+    operations: [list_pass_issuers, list_pass_classes, validate_pass_jwt, search_documentation]
+    writes: false
+skill_count: 3

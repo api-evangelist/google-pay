@@ -4,128 +4,69 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Google Pay
 providerId: google-pay
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Contactless Payments
-  - Digital Wallet
-  - Mobile Payments
-  - Payments
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Google Pay API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+modified: '2026-09-12'
+generated: '2026-09-12'
+method: searched
+source: https://developers.google.com/wallet/generic/resources/faq
+supersedes: >-
+  The 2026-05-04 bulk-sweep scaffold, which invented free/professional/enterprise tiers at
+  10/100/1000 requests per minute with X-RateLimit-* headers and applied them to all nine APIs.
+  None of those numbers or headers appear anywhere in Google's documentation. They are removed.
+description: >-
+  Published rate limits for the Google Pay family. Google publishes exactly one number, for the
+  Google Wallet API, and publishes no rate-limit response headers at all.
+limit_count: 1
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
+  - name: Google Wallet API request rate
     applies:
-      - Google Pay API
-      - Google Pay API for Android
       - Google Wallet API
-      - Google Pay Facilitated Transaction Event API
-      - Google Pay Virtual Cards API
-      - Google Pay Push Provisioning API
-      - Google Pay Payment Card Recognition API
-      - Google Pay India Merchant SDK
-      - Google Universal Commerce Protocol
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Google Pay API
-      - Google Pay API for Android
-      - Google Wallet API
-      - Google Pay Facilitated Transaction Event API
-      - Google Pay Virtual Cards API
-      - Google Pay Push Provisioning API
-      - Google Pay Payment Card Recognition API
-      - Google Pay India Merchant SDK
-      - Google Universal Commerce Protocol
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Google Pay API
-      - Google Pay API for Android
-      - Google Wallet API
-      - Google Pay Facilitated Transaction Event API
-      - Google Pay Virtual Cards API
-      - Google Pay Push Provisioning API
-      - Google Pay Payment Card Recognition API
-      - Google Pay India Merchant SDK
-      - Google Universal Commerce Protocol
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Google Pay API
-      - Google Pay API for Android
-      - Google Wallet API
-      - Google Pay Facilitated Transaction Event API
-      - Google Pay Virtual Cards API
-      - Google Pay Push Provisioning API
-      - Google Pay Payment Card Recognition API
-      - Google Pay India Merchant SDK
-      - Google Universal Commerce Protocol
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Google Pay API
-      - Google Pay API for Android
-      - Google Wallet API
-      - Google Pay Facilitated Transaction Event API
-      - Google Pay Virtual Cards API
-      - Google Pay Push Provisioning API
-      - Google Pay Payment Card Recognition API
-      - Google Pay India Merchant SDK
-      - Google Universal Commerce Protocol
+    scope: per-project
+    metric: requests_per_second
+    limit: 20
+    timeFrame: second
+    burst: null
+    evidence: >-
+      "Calls to the Google Wallet API are rate limited to 20 requests per second."
+      https://developers.google.com/wallet/generic/resources/faq
+undocumented:
+  - api: Google Pay API (Web)
+    note: >-
+      No rate limit published. The surface is a client-side payment sheet invoked by a shopper, so
+      there is no server-side quota document.
+  - api: Google Pay API for Android
+    note: No rate limit published.
+  - api: Google Pay & Wallet Developer MCP server
+    note: >-
+      No rate limit published for paydeveloper.googleapis.com. Google Cloud IAM-gated APIs
+      normally carry per-project quotas in the Cloud console, but none is documented publicly for
+      this service.
+  - api: Google Pay Facilitated Transaction Event API
+    note: No rate limit published.
+  - api: Google Pay Virtual Cards API
+    note: No rate limit published.
+  - api: Google Pay Push Provisioning API
+    note: No rate limit published.
+  - api: Google Pay Payment Card Recognition API
+    note: On-device OCR via Google Play Services; no server quota applies.
+  - api: Google Pay India Merchant SDK
+    note: No rate limit published.
+  - api: Google Universal Commerce Protocol
+    note: No rate limit published.
+headers:
+  documented: []
+  note: >-
+    Google documents NO rate-limit response headers for any Google Pay surface — no
+    X-RateLimit-*, no RateLimit-*, no Retry-After, and no stated status code on exhaustion. An
+    agent gets a number in a FAQ paragraph and no runtime signal, which is the weakness worth
+    recording. The previously-listed header set was scaffold, not observed.
+responseCodes:
+  throttled: null
+  note: >-
+    Google's standard JSON error envelope returns HTTP 429 with status RESOURCE_EXHAUSTED across
+    googleapis.com services, but Google does not document that for the Wallet 20 rps limit
+    specifically, so it is left null rather than asserted.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+  - name: Backoff
+    description: >-
+      Google publishes no backoff guidance specific to Google Pay. Recorded as absent rather than
+      restating generic advice as if it were the provider's policy.

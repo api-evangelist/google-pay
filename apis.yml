@@ -1,8 +1,14 @@
 aid: google-pay
 name: Google Pay
 description: >-
-  Google Pay APIs enable payment processing and digital wallet functionality for apps
-  and websites.
+  Google Pay is Google's digital wallet and payment surface, exposed to developers as a family of
+  distinct APIs rather than one endpoint. The Google Pay API for Web and Android is a client-side
+  payment sheet that returns a signed, ECIES-encrypted payment token for a merchant's gateway to
+  decrypt; the Google Wallet API is a REST service on walletobjects.googleapis.com for issuing
+  loyalty cards, event tickets, boarding passes, transit tickets, gift cards and offers; Google
+  Standard Payments carries the integrator APIs for issuers and PSPs; and the Google Pay & Wallet
+  Developer MCP server gives AI coding agents live access to merchant profiles, integration status
+  and the official documentation.
 deliveryModel:
   model: saas
   open_source: false
@@ -29,14 +35,18 @@ accessModel:
 image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
 url: https://developers.google.com/pay/api
 created: '2024-01-01'
-modified: '2026-04-28'
+modified: '2026-09-12'
 specificationVersion: '0.23'
 type: Index
 tags:
+  - Agentic Commerce
+  - Checkout
   - Contactless Payments
   - Digital Wallet
+  - Merchants
   - Mobile Payments
   - Payments
+  - Tokenization
 apis:
   - name: Google Pay API
     description: >-
@@ -54,12 +64,12 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/pay/api/web
-      - type: OpenAPI
-        url: https://developers.google.com/pay/api/web/reference/rest
+      - type: APIReference
+        url: https://developers.google.com/pay/api/web/reference/request-objects
       - type: Authentication
         url: https://developers.google.com/pay/api/web/guides/setup
       - type: ErrorCodes
-        url: https://developers.google.com/pay/api/web/reference/error-codes
+        url: https://developers.google.com/pay/api/web/reference/error-objects
       - type: Sandbox
         url: https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist
       - type: Reference
@@ -70,7 +80,7 @@ apis:
         url: https://developers.google.com/pay/api/web/support/release-notes
     contact:
       - type: Support
-        url: https://developers.google.com/pay/api/web/support
+        url: https://developers.google.com/pay/api/web/support/troubleshooting
       - type: Twitter
         url: https://twitter.com/googlepay
   - name: Google Pay API for Android
@@ -122,10 +132,10 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/wallet/generic/rest
-      - type: OpenAPI
-        url: https://developers.google.com/wallet/generic/rest/v1
+      - type: DiscoveryDocument
+        url: discovery/google-pay-walletobjects-v1-discovery.json
       - type: Authentication
-        url: https://developers.google.com/wallet/generic/rest/prerequisites
+        url: https://developers.google.com/wallet/generic/web/prerequisites
       - type: Reference
         url: https://developers.google.com/wallet/reference/rest
       - type: GettingStarted
@@ -141,7 +151,7 @@ apis:
       API to report and manage transaction events within the Google payments
       ecosystem.
     image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
-    humanURL: https://developers.google.com/pay/facilitated-transaction-event-v2/concepts/intro
+    humanURL: https://developers.google.com/standard-payments
     baseURL: https://pay.google.com/
     tags:
       - Payment Integrators
@@ -153,9 +163,7 @@ apis:
       - Transactions
     properties:
       - type: Documentation
-        url: https://developers.google.com/pay/facilitated-transaction-event-v2/concepts/intro
-      - type: Reference
-        url: https://developers.google.com/pay/facilitated-transaction-event-v2/google-facilitated-transaction-event-api
+        url: https://developers.google.com/standard-payments
   - name: Google Pay Virtual Cards API
     description: >-
       Enables payment integrators to enroll cards, retrieve virtual card numbers,
@@ -200,7 +208,7 @@ apis:
       optical character recognition. Processing occurs entirely on-device via
       Google Play Services without requiring camera permissions in the app.
     image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
-    humanURL: https://developers.google.com/pay/payment-card-recognition/debit-credit-card-recognition
+    humanURL: https://developers.google.com/pay/api/android/overview
     baseURL: https://pay.google.com/
     tags:
       - Android
@@ -209,7 +217,7 @@ apis:
       - Payments
     properties:
       - type: Documentation
-        url: https://developers.google.com/pay/payment-card-recognition/debit-credit-card-recognition
+        url: https://developers.google.com/pay/api/android/overview
   - name: Google Pay India Merchant SDK
     description: >-
       A toolkit for developers in India to integrate their Android, iOS, and web
@@ -256,6 +264,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: Website
+    url: https://www.google.com/
   - type: VulnerabilityDisclosure
     url: security/google-pay-vulnerability-disclosure.yml
   - type: DomainSecurity
@@ -273,13 +283,13 @@ common:
   - type: GettingStarted
     url: https://developers.google.com/pay/api/web/guides/tutorial
   - type: SDKs
-    url: https://developers.google.com/pay/api/web/guides/resources
+    url: packages/google-pay-packages.yml
   - type: Console
     url: https://pay.google.com/business/console/
   - type: StatusPage
     url: https://developers.google.com/pay/api/status
   - type: Support
-    url: https://developers.google.com/pay/api/web/support
+    url: https://developers.google.com/pay/api/web/support/troubleshooting
   - type: Blog
     url: https://developers.googleblog.com/
   - type: ChangeLog
@@ -288,3 +298,58 @@ common:
     url: https://github.com/google-pay
   - type: FAQ
     url: https://developers.google.com/pay/api/web/support/faq
+  - type: Documentation
+    url: https://developers.google.com/pay/api/web
+  - type: APIReference
+    url: https://developers.google.com/pay/api/web/reference/client
+  - type: SignUp
+    url: https://pay.google.com/business/console/
+  - type: Security
+    url: https://g.co/vrp
+  - type: SecurityTxt
+    url: well-known/google-pay-security.txt
+  - type: WellKnown
+    url: well-known/google-pay-well-known.yml
+  - type: MCPServer
+    url: mcp/google-pay-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/google-pay-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/google-pay-llms.txt
+  - type: Packages
+    url: packages/google-pay-packages.yml
+  - type: Authentication
+    url: authentication/google-pay-authentication.yml
+  - type: OAuthScopes
+    url: scopes/google-pay-scopes.yml
+  - type: ErrorCatalog
+    url: errors/google-pay-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/google-pay-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/google-pay-changelog.yml
+  - type: Conventions
+    url: conventions/google-pay-conventions.yml
+  - type: Conformance
+    url: conformance/google-pay-conformance.yml
+  - type: Sandbox
+    url: sandbox/google-pay-sandbox.yml
+  - type: Components
+    url: components/google-pay-components.yml
+  - type: JSONSchema
+    url: json-schema/google-pay-ucp-payment-handler-config.json
+  - type: RateLimits
+    url: rate-limits/google-pay-rate-limits.yml
+  - type: Plans
+    url: plans/google-pay-plans-pricing.yml
+  - type: FinOps
+    url: finops/google-pay-finops.yml
+x-enrichment:
+  date: '2026-09-12'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v3
+x-parent: google
+x-relationship: product

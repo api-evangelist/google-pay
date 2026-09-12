@@ -1,0 +1,137 @@
+specification: API Commons Conventions
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://developers.google.com/pay/api/web/reference/request-objects ·
+  https://developers.google.com/pay/api/web/reference/response-objects ·
+  https://developers.google.com/pay/api/web/reference/error-objects ·
+  https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp ·
+  mcp/google-pay-mcp-tools-list.json · discovery/google-pay-walletobjects-v1-discovery.json
+note: >-
+  Google Pay is three differently-shaped surfaces under one brand — a client-side JavaScript /
+  Android payment sheet, a Google-standard REST API for Wallet, and a remote MCP server. The
+  cross-cutting semantics differ per surface and are recorded per surface below rather than
+  averaged into one misleading answer.
+auth_style:
+  summary: >-
+    No bearer credential on the client payment surfaces (merchant registration plus registered
+    domain instead); OAuth 2.0 service account on Wallet REST; OAuth 2.0 + Cloud IAM on the MCP
+    server, which does not accept API keys.
+  detail: authentication/google-pay-authentication.yml
+versioning:
+  style: in-request version fields
+  fields: [apiVersion, apiVersionMinor]
+  current: 2.0
+  wallet_rest: URL path segment walletobjects/v1
+  detail: lifecycle/google-pay-lifecycle.yml
+idempotency:
+  coverage: none
+  mechanism: null
+  header: null
+  scope: []
+  note: >-
+    Google publishes no Idempotency-Key header, no client-supplied request-id, and no replay-safe
+    retry contract on any Google Pay surface. The Wallet REST API's insert methods are plain POSTs
+    whose only replay protection is the caller-chosen resource id colliding on a second insert —
+    that is uniqueness by primary key, not a documented idempotency mechanism, so it is recorded
+    as none rather than partial. The MCP server is the one place a per-operation idempotency
+    signal exists at all: 11 of 13 tools carry MCP annotation idempotentHint true, and
+    create_merchant and set_principal_role carry idempotentHint false. That is a real,
+    machine-readable hint an agent can read from tools/list, but it is a hint about the operation's
+    nature, not a mechanism the caller can invoke, so it does not lift coverage above none.
+  evidence:
+    - mcp/google-pay-mcp-tools-list.json (annotations.idempotentHint per tool)
+    - discovery/google-pay-walletobjects-v1-discovery.json (no idempotency parameter on any of 99 methods)
+reversibility:
+  grade: documented
+  note: >-
+    Read the grade carefully: a reversal path exists on the account-management surface, and NO
+    reversal window is published anywhere, so this grades `documented` and not `verified`. Google
+    states no window for any reversal, and none was invented here.
+  surfaces:
+    - surface: Google Pay API (Web / Android)
+      write_operations: []
+      reversal: na
+      note: >-
+        The client API produces an encrypted PaymentMethodToken; it never captures, charges,
+        refunds or voids. Money movement and its reversal belong entirely to the merchant's
+        gateway/PSP, so reversibility for the payment itself is out of Google Pay's contract.
+    - surface: Google Pay & Wallet Developer MCP server
+      write_operations: [create_merchant, update_merchant, set_principal_role, delete_principal]
+      reversal: partial
+      reversal_operations:
+        - operation: set_principal_role
+          reverses: delete_principal
+          note: >-
+            Removing a principal can be undone by re-adding them with set_principal_role. Google
+            flags both destructiveHint true. No window is stated, and no restore/undelete
+            operation exists.
+        - operation: update_merchant
+          reverses: update_merchant
+          note: >-
+            A merchant profile field change can be written back to its previous value, provided
+            the caller captured the previous value first — there is no server-side revision
+            history or restore endpoint.
+      no_reversal:
+        - operation: create_merchant
+          note: >-
+            No delete_merchant tool exists in tools/list. A merchant profile created in error
+            cannot be removed through the MCP surface.
+      window_published: false
+    - surface: Google Wallet API
+      write_operations: [class/object insert, patch, update, addmessage]
+      reversal: documented
+      note: >-
+        Pass classes and objects are mutated with patch/update and expired by setting state to
+        EXPIRED — the Discovery document exposes no delete method for any pass type, so the
+        reversal of an issuance is a state change, not a deletion. No window is published.
+      window_published: false
+pagination:
+  wallet_rest:
+    style: token
+    request_params: [maxResults, token]
+    response_field: pagination.nextPageToken
+    source: discovery/google-pay-walletobjects-v1-discovery.json
+  mcp:
+    style: none
+    note: >-
+      No list tool in tools/list declares a page-size or cursor parameter; list_merchants and
+      list_pass_classes take only view/passType filters.
+  client_api:
+    style: na
+field_expansion:
+  wallet_rest:
+    mechanism: view parameter (FULL / BASIC) on class/object list methods
+  mcp:
+    mechanism: view parameter on list_merchants and list_pass_classes
+metadata:
+  note: >-
+    Wallet pass classes and objects carry issuer-defined free-form fields (textModulesData,
+    linksModuleData, imageModulesData, and a smartTapRedemptionValue) rather than a generic
+    metadata map.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No client-visible request-id or correlation header is documented on any Google Pay surface.
+    Google's frontends return x-guploader-uploadid on media uploads and standard ESF response
+    headers, but none is documented as a support-reference id.
+error_envelope:
+  client_api: 'PaymentsError { statusCode, statusMessage }'
+  wallet_rest: 'Google JSON error envelope: error { code, message, errors[], status }'
+  format: vendor (not RFC 9457)
+  detail: errors/google-pay-problem-types.yml
+rate_limit_signaling:
+  documented_headers: []
+  note: >-
+    Google publishes a 20 requests-per-second limit for the Google Wallet API in prose but
+    documents no RateLimit-*/X-RateLimit-*/Retry-After response header and no exhaustion status
+    code for it. See rate-limits/google-pay-rate-limits.yml.
+dry_run_mode:
+  available: partial
+  note: >-
+    There is no dry-run flag, but there are two rehearsal surfaces: environment TEST on the client
+    API runs the whole payment-sheet flow without money movement, and the MCP tool
+    validate_pass_jwt validates a pass JWT or payload without issuing anything.

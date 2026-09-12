@@ -1,0 +1,151 @@
+specification: API Commons Well-Known
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: probed
+source: live GET probes of /.well-known/* on every host this record knows
+note: >-
+  Probed the registrable domain and www, every apis[].baseURL host, the docs/console hosts, the
+  Google Pay & Wallet Developer MCP host (paydeveloper.googleapis.com), the Google identity host
+  named by the MCP OAuth flow (accounts.google.com), and ucp.goog — the Google-operated host that
+  serves Google's own Universal Commerce Protocol profile. Hits are saved verbatim beside this
+  index. Every 404 body returned by the Google frontends is the standard Google HTML error page,
+  not a document.
+hosts:
+  - host: www.google.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: google-pay-security.txt
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: accounts.google.com
+    note: >-
+      The authorization server for the OAuth 2.0 flow the Google Pay & Wallet Developer MCP server
+      and the Google Wallet API both require. Probed because it is the auth host named by the
+      MCP setup guide, not because it is a Google Pay product host.
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: google-pay-accounts-openid-configuration.json
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: google-pay-accounts-oauth-authorization-server.json
+      - path: /.well-known/security.txt
+        status: 404
+  - host: ucp.goog
+    note: >-
+      Google's own Universal Commerce Protocol discovery profile. Declares the UCP services,
+      capabilities and the com.google.pay payment handler Google implements, plus the ES256
+      signing keys. This is a served, first-party discovery document.
+    documents:
+      - path: /.well-known/ucp.json
+        status: 200
+        file: google-pay-ucp-profile.json
+      - path: /.well-known/2026-04-08/ucp.json
+        status: 200
+        note: version-pinned copy of the same profile; not saved separately
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+  - host: pay.google.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: walletobjects.googleapis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: paydeveloper.googleapis.com
+    note: >-
+      Host of the Google Pay & Wallet Developer MCP server. Serves no discovery documents at any
+      /.well-known path — the MCP endpoint itself answers an anonymous tools/list instead.
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+  - host: developers.google.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: payments.developers.google.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+agent_card:
+  found: false
+  note: >-
+    /.well-known/agent-card.json and the legacy /.well-known/agent.json both 404 on every host
+    probed. No A2A agent card is published, so no a2a/ artifact and no AgentCard pointer was
+    written. Recorded as an honest absence.

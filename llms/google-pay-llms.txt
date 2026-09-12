@@ -1,0 +1,107 @@
+# Google Pay
+
+> Google Pay is Google's digital wallet and payment surface. For developers it is not one API but
+> a family: a client-side JavaScript / Android payment sheet that returns an encrypted payment
+> token, a Google-standard REST API for issuing Google Wallet passes, a set of Google Standard
+> Payments integrator APIs for issuers and PSPs, and — since 2026 — a remote MCP server for
+> developer and merchant-console operations.
+
+Generated: 2026-09-12
+Method: generated (from apis.yml and the artifacts in this repository; no /llms.txt is published
+by Google — probed developers.google.com/llms.txt, developers.google.com/pay/llms.txt and
+pay.google.com/llms.txt on 2026-09-12, all 404)
+Source: https://github.com/api-evangelist/google-pay
+
+## What an agent can actually call
+
+- **MCP server (remote, OAuth):** https://paydeveloper.googleapis.com/mcp — 13 tools. `tools/list`
+  answers anonymously; tool calls need OAuth 2.0 + the IAM role `roles/mcp.toolUser`. Google
+  states it does not accept API keys.
+- **Google Wallet REST API:** https://walletobjects.googleapis.com/ — 99 methods, machine-readable
+  as a Google API Discovery document, OAuth 2.0 service account, scope
+  `https://www.googleapis.com/auth/wallet_object.issuer`.
+- **Google Pay Web / Android:** not callable by an agent. It is a shopper-facing payment sheet
+  invoked from a browser or Android app; there is no server endpoint.
+
+## Machine-readable contracts
+
+- MCP tool manifest (verbatim): mcp/google-pay-mcp-tools-list.json
+- Google Wallet API Discovery document (verbatim, rev 20260911): discovery/google-pay-walletobjects-v1-discovery.json
+- Google Pay UCP payment-handler config schema, JSON Schema 2020-12 (verbatim):
+  json-schema/google-pay-ucp-payment-handler-config.json
+- Google's Universal Commerce Protocol profile (verbatim): well-known/google-pay-ucp-profile.json
+- **There is no OpenAPI.** Google publishes none for any Google Pay surface. Probed the API host
+  roots, the docs host and the MCP host on 2026-09-12.
+
+## APIs
+
+- [Google Pay API (Web)](https://developers.google.com/pay/api/web) — JavaScript PaymentsClient;
+  returns a signed, ECIES-encrypted PaymentMethodToken.
+- [Google Pay API for Android](https://developers.google.com/pay/api/android/overview) —
+  PaymentsClient via Google Play services.
+- [Google Wallet API](https://developers.google.com/wallet) — loyalty, event tickets, boarding
+  passes, transit, gift cards, offers, generic passes.
+- [Google Pay & Wallet Developer MCP server](https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp)
+- [Facilitated Transaction Event API](https://developers.google.com/pay/facilitated-transaction-event-v2/concepts/intro)
+- [Virtual Cards API](https://developers.google.com/pay/virtual-cards-v1/payment-integrator-virtual-cards-api)
+- [Push Provisioning API](https://developers.google.com/pay/issuers/apis/push-provisioning/server)
+- [Payment Card Recognition API](https://developers.google.com/pay/payment-card-recognition/debit-credit-card-recognition)
+- [Google Pay India Merchant SDK](https://developers.google.com/pay/india/api)
+- [Universal Commerce Protocol](https://developers.google.com/merchant/ucp) — Google's UCP profile
+  is served at https://ucp.goog/.well-known/ucp.json
+
+## Authentication
+
+Four different models, one per surface. Merchant registration + registered domain for the client
+APIs (no bearer token at all); OAuth 2.0 service account for Wallet REST; OAuth 2.0 + Cloud IAM for
+MCP; ES256 message signing for UCP. See authentication/google-pay-authentication.yml and
+scopes/google-pay-scopes.yml.
+
+## Things an agent should know before integrating
+
+- **No idempotency.** No Idempotency-Key, no client request id, no replay-safe retry contract on
+  any surface. Do not blind-retry a write. (conventions/google-pay-conventions.yml)
+- **No rate-limit headers.** Google publishes one number — 20 requests/second for the Google
+  Wallet API — in a FAQ paragraph, and no runtime header or exhaustion status code anywhere.
+- **No deprecation policy and no SLA.** Changes arrive as dated release notes with no stated
+  window and no Sunset/Deprecation headers.
+- **Production access is human-gated.** A Google Pay Business Profile, accepted Terms and
+  Acceptable Use Policy, a registered top-level domain, and screenshots reviewed by the Google Pay
+  team. TEST needs none of that.
+- **No fee.** "Google Pay doesn't additionally charge users, merchants, and developers additional
+  fees to use the Google Pay API for payments." Processing fees are your PSP's.
+- **Decline codes are not Google's.** Google Pay is a wallet, not an acquirer; authorisation
+  outcomes come from your gateway after it decrypts the token.
+
+## Errors
+
+`PaymentsError { statusCode, statusMessage }` on the client APIs. Four documented codes:
+BUYER_ACCOUNT_ERROR, DEVELOPER_ERROR, MERCHANT_ACCOUNT_ERROR, INTERNAL_ERROR. Only the last is
+worth retrying. https://developers.google.com/pay/api/web/reference/error-objects
+
+## Testing
+
+`environment: 'TEST'` on the PaymentsClient constructor — same host, no separate key. Gateway test
+cards for 24+ gateways, mock PAN_ONLY cards otherwise, sample tokens signed with Google's test
+keys at https://payments.developers.google.com/paymentmethodtoken/test/keys.json.
+See sandbox/google-pay-sandbox.yml.
+
+## First-party packages
+
+@google-pay/button-element, @google-pay/button-react, @google-pay/button-angular (npm, 4.1.0,
+2026-08-24) · pay (pub.dev, 3.3.0, 2025-11-21) · com.google.pay.button:compose-pay-button (Maven
+Central, 1.1.0, 2025-01-06) · react-native-make-payment (GitHub only, no npm release).
+See packages/google-pay-packages.yml.
+
+## Links
+
+- Developer portal: https://developers.google.com/pay
+- Google Pay & Wallet Console: https://pay.google.com/business/console/
+- Status dashboard: https://developers.google.com/pay/api/status
+- Release notes: https://developers.google.com/pay/api/web/support/release-notes
+- Troubleshooting: https://developers.google.com/pay/api/web/support/troubleshooting
+- FAQ: https://developers.google.com/pay/api/faq
+- Brand guidelines: https://developers.google.com/pay/api/web/guides/brand-guidelines
+- Terms of Service: https://payments.developers.google.com/terms/sellertos
+- GitHub: https://github.com/google-pay
+- Security / VDP: https://g.co/vrp (https://www.google.com/.well-known/security.txt)

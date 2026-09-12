@@ -1,0 +1,119 @@
+specification: API Commons Packages
+specificationVersion: '0.1'
+provider: Google Pay
+providerId: google-pay
+generated: '2026-09-12'
+method: searched
+source: >-
+  github.com/google-pay org listing (GitHub API, 2026-09-12) cross-checked against
+  registry.npmjs.org, pub.dev, and search.maven.org metadata endpoints
+note: >-
+  Google Pay ships no server-side REST SDK, because the Google Pay Web and Android APIs are
+  client-side JavaScript / Google Play Services surfaces rather than REST APIs. The first-party
+  packages are therefore UI/button libraries and platform plugins. Versions and dates below were
+  read from each registry's metadata endpoint on 2026-09-12; nothing is inferred from prose.
+packages:
+  - name: '@google-pay/button-element'
+    registry: npm
+    url: https://www.npmjs.com/package/@google-pay/button-element
+    language: JavaScript
+    official: true
+    version: 4.1.0
+    published: '2026-08-24'
+    repository: https://github.com/google-pay/google-pay-button
+    description: Google Pay button as a framework-agnostic custom element (web component).
+  - name: '@google-pay/button-react'
+    registry: npm
+    url: https://www.npmjs.com/package/@google-pay/button-react
+    language: JavaScript
+    official: true
+    version: 4.1.0
+    published: '2026-08-24'
+    repository: https://github.com/google-pay/google-pay-button
+    description: React wrapper for the Google Pay button.
+  - name: '@google-pay/button-angular'
+    registry: npm
+    url: https://www.npmjs.com/package/@google-pay/button-angular
+    language: JavaScript
+    official: true
+    version: 4.1.0
+    published: '2026-08-24'
+    repository: https://github.com/google-pay/google-pay-button
+    description: Angular component wrapper for the Google Pay button.
+  - name: pay
+    registry: pub.dev
+    url: https://pub.dev/packages/pay
+    language: Dart
+    official: true
+    version: 3.3.0
+    published: '2025-11-21'
+    repository: https://github.com/google-pay/flutter-plugin
+    description: >-
+      Flutter plugin for Google Pay and Apple Pay, published by Google to pub.dev. Ten months
+      behind the npm button libraries as of this probe.
+  - name: com.google.pay.button:compose-pay-button
+    registry: maven
+    url: https://central.sonatype.com/artifact/com.google.pay.button/compose-pay-button
+    language: Kotlin
+    official: true
+    version: 1.1.0
+    published: '2025-01-06'
+    repository: https://github.com/google-pay/compose-pay-button
+    description: >-
+      Jetpack Compose wrapper around the Google Pay button for Android. Maven Central reports 10
+      published versions; latest release predates the current Google Pay web release notes by
+      over a year, though the GitHub repo is still actively pushed to (2026-09-07).
+  - name: react-native-make-payment
+    registry: null
+    url: https://github.com/google-pay/react-native-make-payment
+    language: Kotlin/TypeScript
+    official: true
+    version: null
+    published: null
+    repository: https://github.com/google-pay/react-native-make-payment
+    description: >-
+      React Native library for making native payments (Google Pay / Apple Pay via the W3C Payment
+      Request shape).
+    note: >-
+      Checked registry.npmjs.org/react-native-make-payment on 2026-09-12 — 404 "Not found". The
+      library is distributed from the GitHub repository only, so consumers pin a git ref rather
+      than a released version. Recorded as null with this note, not omitted.
+  - name: com.google.android.gms:play-services-wallet
+    registry: maven
+    url: https://developers.google.com/pay/api/android/guides/setup
+    language: Java/Kotlin
+    official: true
+    version: null
+    published: null
+    description: >-
+      The Google Play services Wallet artifact that carries PaymentsClient — the actual Google Pay
+      API for Android. Distributed through Google's Maven repository (maven.google.com), which has
+      no public metadata search endpoint equivalent to search.maven.org.
+    note: >-
+      search.maven.org (Maven Central) returns no artifact for g:com.google.android.gms — Play
+      services artifacts are hosted on Google's own Maven repo, so no version/date could be read
+      from a queryable registry endpoint. Recorded as null with this note; the setup guide is the
+      only place Google states the current version, and it is prose, not registry metadata.
+source_repositories:
+  - https://github.com/google-pay/google-pay-button
+  - https://github.com/google-pay/flutter-plugin
+  - https://github.com/google-pay/compose-pay-button
+  - https://github.com/google-pay/react-native-make-payment
+  - https://github.com/google-pay/android-quickstart
+  - https://github.com/google-pay/pay-server-demos
+archived_repositories:
+  - name: google-pay/payment-data-cryptography-dotnet
+    last_push: '2022-07-13'
+  - name: google-pay/tink-jni-examples
+    last_push: '2021-05-03'
+  - name: google-pay/gsp-pgp-java
+    last_push: '2023-08-09'
+    note: Google Standard Payments PGP Java library, archived.
+  - name: google-pay/firebase-extension
+    last_push: '2022-11-25'
+  - name: google-pay/online-quickstart-web
+    last_push: '2025-01-10'
+counts:
+  official: 7
+  with_registry_version: 5
+  registry_null: 2
