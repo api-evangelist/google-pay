@@ -7,22 +7,19 @@ generated: '2026-09-12'
 method: probed
 status: published
 source: https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
-description: >-
-  Google's first-party remote MCP server for Google Pay and Google Wallet developers. It exposes
-  documentation search over the official Google Pay and Google Wallet docs plus live read and
-  write access to the caller's own merchant profiles, Google Pay integrations, Wallet pass
-  issuers and pass classes, merchant performance and error metrics, and merchant access control.
+description: Google's first-party remote MCP server for Google Pay and Google Wallet developers. It exposes
+  documentation search over the official Google Pay and Google Wallet docs plus live read and write access
+  to the caller's own merchant profiles, Google Pay integrations, Wallet pass issuers and pass classes,
+  merchant performance and error metrics, and merchant access control.
 deployment:
   mode: remote
   endpoint: https://paydeveloper.googleapis.com/mcp
   auth: oauth
   verified: probed
-  note: >-
-    Remote HTTP MCP server only — Google publishes no stdio/npx package for it. The client config
-    Google documents is a bare `url` entry (VS Code `servers`, Cursor `mcpServers`), with no
-    command/args. An anonymous POST of tools/list returns HTTP 200 with the full tool set; calling
-    a tool requires OAuth 2.0 (the server "does not accept API keys") and the IAM role
-    roles/mcp.toolUser.
+  note: Remote HTTP MCP server only — Google publishes no stdio/npx package for it. The client config
+    Google documents is a bare `url` entry (VS Code `servers`, Cursor `mcpServers`), with no command/args.
+    An anonymous POST of tools/list returns HTTP 200 with the full tool set; calling a tool requires OAuth
+    2.0 (the server "does not accept API keys") and the IAM role roles/mcp.toolUser.
 transport: streamable-http (JSON-RPC 2.0 over HTTPS)
 authentication:
   type: oauth2
@@ -30,8 +27,8 @@ authentication:
   api_keys_accepted: false
   iam_role: roles/mcp.toolUser
   scopes:
-    - https://www.googleapis.com/auth/paydeveloper.merchant
-    - https://www.googleapis.com/auth/paydeveloper.issuer.readonly
+  - https://www.googleapis.com/auth/paydeveloper.merchant
+  - https://www.googleapis.com/auth/paydeveloper.issuer.readonly
   source: https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
 discovery:
   tools_list:
@@ -43,124 +40,189 @@ discovery:
     anonymous: true
     fetched: '2026-09-12'
     file: google-pay-mcp-tools-list.json
-    note: >-
-      The saved file is the verbatim JSON-RPC response. Every tool below carries a real
-      inputSchema and outputSchema from that response — none of it was authored here.
+    note: The saved file is the verbatim JSON-RPC response. Every tool below carries a real inputSchema
+      and outputSchema from that response — none of it was authored here.
   well_known:
-    - path: /.well-known/oauth-protected-resource
-      status: 404
-    - path: /.well-known/oauth-authorization-server
-      status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
 tool_count: 13
 tools:
-  - name: search_documentation
-    category: documentation
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: [userQuery]
-    parameters: [languageCode, userQuery]
-    description: >-
-      Searches and retrieves the most relevant, up-to-date sections from the official Google Pay
-      and Google Wallet developer documentation and code samples.
-  - name: list_merchants
-    category: merchant
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: []
-    parameters: [view]
-  - name: list_google_pay_integrations
-    category: integration
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: [merchantId]
-    parameters: [merchantId]
-  - name: create_merchant
-    category: merchant
-    read_only: false
-    destructive: false
-    idempotent: false
-    required: [merchant]
-    parameters: [merchant]
-  - name: list_pass_issuers
-    category: wallet
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: []
-    parameters: []
-  - name: list_pass_classes
-    category: wallet
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: [issuerId]
-    parameters: [issuerId, passType, view]
-  - name: validate_pass_jwt
-    category: wallet
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: []
-    parameters: [passJson, passJwt]
-  - name: query_merchant_performance
-    category: analytics
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: [merchantId]
-    parameters: [merchantId, timeRange]
-  - name: query_merchant_error_metrics
-    category: analytics
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: [merchantId]
-    parameters: [merchantId, timeRange]
-  - name: update_merchant
-    category: merchant
-    read_only: false
-    destructive: false
-    idempotent: true
-    required: [merchantId]
-    parameters:
-      - corporateWebsiteUrl
-      - customerSupportEmail
-      - customerSupportPhone
-      - customerSupportWebsiteUrl
-      - displayName
-      - mcc
-      - merchantId
-  - name: list_principals
-    category: access-control
-    read_only: true
-    destructive: false
-    idempotent: true
-    required: [merchantId]
-    parameters: [merchantId]
-  - name: set_principal_role
-    category: access-control
-    read_only: false
-    destructive: true
-    idempotent: false
-    required: [merchantId, email, role]
-    parameters: [email, merchantId, role]
-  - name: delete_principal
-    category: access-control
-    read_only: false
-    destructive: true
-    idempotent: true
-    required: [merchantId, email]
-    parameters: [email, merchantId]
-annotations_note: >-
-  Every tool ships MCP annotations (readOnlyHint / destructiveHint / idempotentHint /
-  openWorldHint). 10 of 13 are read-only; set_principal_role and delete_principal are the two
-  tools Google flags destructiveHint: true. That is a machine-readable consequence signal most
-  MCP servers in this catalog do not publish.
+- name: search_documentation
+  category: documentation
+  read_only: true
+  destructive: false
+  idempotent: true
+  required:
+  - userQuery
+  parameters:
+  - languageCode
+  - userQuery
+  description: Searches and retrieves the most relevant, up-to-date sections from the official Google
+    Pay and Google Wallet developer documentation and code samples.
+- name: list_merchants
+  category: merchant
+  read_only: true
+  destructive: false
+  idempotent: true
+  required: []
+  parameters:
+  - view
+  description: Retrieves a comprehensive list of all Google Pay merchants associated with the authenticated
+    account. Depending on the user's role on a merchant, admins can view full detailed merchant information,
+    while developers can only view basic merchant information.
+- name: list_google_pay_integrations
+  category: integration
+  read_only: true
+  destructive: false
+  idempotent: true
+  required:
+  - merchantId
+  parameters:
+  - merchantId
+  description: Returns the current status and configuration details for all Google Pay integrations associated
+    with a specific Merchant ID. It provides immediate feedback on the status of integration and document
+    reviews. Additionally, you MUST inform the user that the integration can be created/updated in the
+    Google Pay & Wallet Console (https://pay.google.com/business/console/).
+- name: create_merchant
+  category: merchant
+  read_only: false
+  destructive: false
+  idempotent: false
+  required:
+  - merchant
+  parameters:
+  - merchant
+  description: Creates a new merchant with the authenticated account. You MUST ask the user to provide
+    the required information for merchant creation. One of the required fields is the Merchant Category
+    Code (MCC). Since the list of MCCs is long, you may present a subset of common options, but you MUST
+    inform the user that more options are available and they can ask for the full list (e.g. by showing
+    "X more opt…
+- name: list_pass_issuers
+  category: wallet
+  read_only: true
+  destructive: false
+  idempotent: true
+  required: []
+  parameters: []
+  description: Retrieves a comprehensive list of all pass issuers registered in the Google Wallet business
+    console associated with the authenticated user. This tool provides essential information for developers
+    managing Wallet passes like loyalty cards, gift cards, or flights.
+- name: list_pass_classes
+  category: wallet
+  read_only: true
+  destructive: false
+  idempotent: true
+  required:
+  - issuerId
+  parameters:
+  - issuerId
+  - passType
+  - view
+  description: Retrieves a comprehensive list of all pass classes registered in the Google Wallet business
+    console associated with the authenticated user. This tool provides essential information for developers
+    managing Wallet passes like loyalty cards, gift cards, or flights.
+- name: validate_pass_jwt
+  category: wallet
+  read_only: true
+  destructive: false
+  idempotent: true
+  required: []
+  parameters:
+  - passJson
+  - passJwt
+  description: Validates the JWT representation of a pass, or the unencoded JWT payload as a JSON string
+    for a pass.
+- name: query_merchant_performance
+  category: analytics
+  read_only: true
+  destructive: false
+  idempotent: true
+  required:
+  - merchantId
+  parameters:
+  - merchantId
+  - timeRange
+  description: Retrieves high-level aggregated performance data and post-integration metrics for a specific
+    merchant business profile.
+- name: query_merchant_error_metrics
+  category: analytics
+  read_only: true
+  destructive: false
+  idempotent: true
+  required:
+  - merchantId
+  parameters:
+  - merchantId
+  - timeRange
+  description: Retrieves detailed error metrics for a specific merchant business profile. This tool provides
+    a granular breakdown of errors, allowing developers to pinpoint and resolve issues.
+- name: update_merchant
+  category: merchant
+  read_only: false
+  destructive: false
+  idempotent: true
+  required:
+  - merchantId
+  parameters:
+  - corporateWebsiteUrl
+  - customerSupportEmail
+  - customerSupportPhone
+  - customerSupportWebsiteUrl
+  - displayName
+  - mcc
+  - merchantId
+  description: Updates specific fields of an existing merchant. Supported fields include display_name,
+    mcc, corporate_website_url, customer_support_website_url, customer_support_email, and customer_support_phone.
+- name: list_principals
+  category: access-control
+  read_only: true
+  destructive: false
+  idempotent: true
+  required:
+  - merchantId
+  parameters:
+  - merchantId
+  description: Lists the principals (users) that have access to a specific merchant. This operation requires
+    Admin access for the merchant.
+- name: set_principal_role
+  category: access-control
+  read_only: false
+  destructive: true
+  idempotent: false
+  required:
+  - merchantId
+  - email
+  - role
+  parameters:
+  - email
+  - merchantId
+  - role
+  description: Sets the role of a principal (user) on a merchant, or adds a new principal with the specified
+    role. The principal is sent an email invitation and must accept it before their access becomes active.
+    This operation requires Admin access for the merchant.
+- name: delete_principal
+  category: access-control
+  read_only: false
+  destructive: true
+  idempotent: true
+  required:
+  - merchantId
+  - email
+  parameters:
+  - email
+  - merchantId
+  description: Deletes a principal's (user's) access to a specific merchant. This operation requires Admin
+    access for the merchant.
+annotations_note: 'Every tool ships MCP annotations (readOnlyHint / destructiveHint / idempotentHint /
+  openWorldHint). 10 of 13 are read-only; set_principal_role and delete_principal are the two tools Google
+  flags destructiveHint: true. That is a machine-readable consequence signal most MCP servers in this
+  catalog do not publish.'
 documentation:
-  - https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
-  - https://developers.google.com/pay/api/web/reference/mcp
-  - https://developers.google.com/wallet/reference/mcp
-  - https://developers.googleblog.com/supercharge-your-integration-workflow-with-the-google-pay-wallet-developer-mcp-server/
+- https://developers.google.com/pay/api/web/guides/use-pay-wallet-mcp
+- https://developers.google.com/pay/api/web/reference/mcp
+- https://developers.google.com/wallet/reference/mcp
+- https://developers.googleblog.com/supercharge-your-integration-workflow-with-the-google-pay-wallet-developer-mcp-server/
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
