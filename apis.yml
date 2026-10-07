@@ -264,6 +264,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: Pricing
+    url: https://developers.google.com/pay/api/faq
   - type: Website
     url: https://www.google.com/
   - type: VulnerabilityDisclosure
