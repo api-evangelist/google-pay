@@ -35,3 +35,16 @@ notes: >-
   processor/gateway, not with Google. The Google Wallet API is likewise published with no fee
   schedule. Recorded as a single zero-cost plan rather than plan_count 0, because Google makes an
   explicit affirmative statement about cost rather than staying silent.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  units: []
+  plans:
+  - name: Google Pay API
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods: []
