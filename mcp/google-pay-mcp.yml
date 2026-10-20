@@ -47,9 +47,11 @@ discovery:
     status: 404
   - path: /.well-known/oauth-authorization-server
     status: 404
-tool_count: 13
+tool_count: 16
 tools:
 - name: search_documentation
+  description: Searches and retrieves the most relevant, up-to-date sections from the official Google
+    Pay and Google Wallet developer documentation and code samples.
   category: documentation
   read_only: true
   destructive: false
@@ -59,9 +61,10 @@ tools:
   parameters:
   - languageCode
   - userQuery
-  description: Searches and retrieves the most relevant, up-to-date sections from the official Google
-    Pay and Google Wallet developer documentation and code samples.
 - name: list_merchants
+  description: Retrieves a comprehensive list of all merchants associated with the authenticated account.
+    Depending on the user's role on a merchant, admins can view full detailed merchant information, while
+    developers can only view basic merchant information.
   category: merchant
   read_only: true
   destructive: false
@@ -69,10 +72,11 @@ tools:
   required: []
   parameters:
   - view
-  description: Retrieves a comprehensive list of all Google Pay merchants associated with the authenticated
-    account. Depending on the user's role on a merchant, admins can view full detailed merchant information,
-    while developers can only view basic merchant information.
 - name: list_google_pay_integrations
+  description: Returns the current status and configuration details for all Google Pay integrations associated
+    with a specific Merchant ID. It provides immediate feedback on the status of integration and document
+    reviews. Additionally, you MUST inform the user that the integration can be created/updated in the
+    Google Pay & Wallet Console (https://pay.google.com/business/console/).
   category: integration
   read_only: true
   destructive: false
@@ -81,11 +85,14 @@ tools:
   - merchantId
   parameters:
   - merchantId
-  description: Returns the current status and configuration details for all Google Pay integrations associated
-    with a specific Merchant ID. It provides immediate feedback on the status of integration and document
-    reviews. Additionally, you MUST inform the user that the integration can be created/updated in the
-    Google Pay & Wallet Console (https://pay.google.com/business/console/).
 - name: create_merchant
+  description: Creates a new merchant with the authenticated account. You MUST ask the user to provide
+    the required information for merchant creation. One of the required fields is the Merchant Category
+    Code (MCC). Since the list of MCCs is long, you may present a subset of common options, but you MUST
+    inform the user that more options are available and they can ask for the full list (e.g. by showing
+    "X more options" or similar hint). Additionally, inform the user that they can directly provide the
+    4-digit MCC code (e.g., 5499) if they already know it, and encourage them to use it. Do not call this
+    tool until you have attempted to collect the required information for merchant creation.
   category: merchant
   read_only: false
   destructive: false
@@ -94,22 +101,35 @@ tools:
   - merchant
   parameters:
   - merchant
-  description: Creates a new merchant with the authenticated account. You MUST ask the user to provide
-    the required information for merchant creation. One of the required fields is the Merchant Category
-    Code (MCC). Since the list of MCCs is long, you may present a subset of common options, but you MUST
-    inform the user that more options are available and they can ask for the full list (e.g. by showing
-    "X more opt…
+- name: create_google_pay_integration
+  description: "Creates a Google Pay integration for a specific merchant. Follow this sequence to interact\
+    \ with the user BEFORE calling the tool: 1. First, ask the user for the integration item (Web integration\
+    \ or App integration):\n   - For a Web integration, ask the user for the website domain. If the user\
+    \ wants\nto continue an existing web integration or is unsure which domain to use, you MAY call `list_google_pay_integrations`\
+    \ and present their web integrations with state `INCOMPLETE` or `READY_FOR_REVIEW` as options.\n \
+    \  - For an App integration, you MUST call `list_google_pay_integrations` first\nand present the Android\
+    \ app package names (with their state) whose state is `NOT_STARTED`, `INCOMPLETE`, or `READY_FOR_REVIEW`\
+    \ as options for the user to choose from. If no Android apps are in these states, do not ask the user\
+    \ for a package name. Instead, tell the user that there are no Android apps they can create a Google\
+    \ Pay integration for: the app must be associated with the Google account the user signed in with\
+    \ as the account owner, admin, or user in Google Play Console (see <https://support.google.com/googleplay/android-developer/answer/2528691>).\
+    \ 2. Then, ask the user for the integration type:\n   - Tell the user to choose Gateway if they use\
+    \ one of our supported Payment\nService Providers (PSPs: <https://developers.google.com/pay/api#participating-processors>),\
+    \ otherwise choose Direct. Do not call this tool until you have collected the required information."
 - name: list_pass_issuers
+  description: Retrieves a comprehensive list of all pass issuers registered in the Google Wallet business
+    console associated with the authenticated user. This tool provides essential information for developers
+    managing Wallet passes like loyalty cards, gift cards, or flights.
   category: wallet
   read_only: true
   destructive: false
   idempotent: true
   required: []
   parameters: []
-  description: Retrieves a comprehensive list of all pass issuers registered in the Google Wallet business
+- name: list_pass_classes
+  description: Retrieves a comprehensive list of all pass classes registered in the Google Wallet business
     console associated with the authenticated user. This tool provides essential information for developers
     managing Wallet passes like loyalty cards, gift cards, or flights.
-- name: list_pass_classes
   category: wallet
   read_only: true
   destructive: false
@@ -120,10 +140,9 @@ tools:
   - issuerId
   - passType
   - view
-  description: Retrieves a comprehensive list of all pass classes registered in the Google Wallet business
-    console associated with the authenticated user. This tool provides essential information for developers
-    managing Wallet passes like loyalty cards, gift cards, or flights.
 - name: validate_pass_jwt
+  description: Validates the JWT representation of a pass, or the unencoded JWT payload as a JSON string
+    for a pass.
   category: wallet
   read_only: true
   destructive: false
@@ -132,21 +151,9 @@ tools:
   parameters:
   - passJson
   - passJwt
-  description: Validates the JWT representation of a pass, or the unencoded JWT payload as a JSON string
-    for a pass.
 - name: query_merchant_performance
-  category: analytics
-  read_only: true
-  destructive: false
-  idempotent: true
-  required:
-  - merchantId
-  parameters:
-  - merchantId
-  - timeRange
   description: Retrieves high-level aggregated performance data and post-integration metrics for a specific
     merchant business profile.
-- name: query_merchant_error_metrics
   category: analytics
   read_only: true
   destructive: false
@@ -156,9 +163,21 @@ tools:
   parameters:
   - merchantId
   - timeRange
+- name: query_merchant_error_metrics
   description: Retrieves detailed error metrics for a specific merchant business profile. This tool provides
     a granular breakdown of errors, allowing developers to pinpoint and resolve issues.
+  category: analytics
+  read_only: true
+  destructive: false
+  idempotent: true
+  required:
+  - merchantId
+  parameters:
+  - merchantId
+  - timeRange
 - name: update_merchant
+  description: Updates specific fields of an existing merchant. Supported fields include display_name,
+    mcc, corporate_website_url, customer_support_website_url, customer_support_email, and customer_support_phone.
   category: merchant
   read_only: false
   destructive: false
@@ -173,9 +192,9 @@ tools:
   - displayName
   - mcc
   - merchantId
-  description: Updates specific fields of an existing merchant. Supported fields include display_name,
-    mcc, corporate_website_url, customer_support_website_url, customer_support_email, and customer_support_phone.
 - name: list_principals
+  description: Lists the principals (users) that have access to a specific merchant. This operation requires
+    Admin access for the merchant.
   category: access-control
   read_only: true
   destructive: false
@@ -184,9 +203,10 @@ tools:
   - merchantId
   parameters:
   - merchantId
-  description: Lists the principals (users) that have access to a specific merchant. This operation requires
-    Admin access for the merchant.
 - name: set_principal_role
+  description: Sets the role of a principal (user) on a merchant, or adds a new principal with the specified
+    role. The principal is sent an email invitation and must accept it before their access becomes active.
+    This operation requires Admin access for the merchant.
   category: access-control
   read_only: false
   destructive: true
@@ -199,10 +219,9 @@ tools:
   - email
   - merchantId
   - role
-  description: Sets the role of a principal (user) on a merchant, or adds a new principal with the specified
-    role. The principal is sent an email invitation and must accept it before their access becomes active.
-    This operation requires Admin access for the merchant.
 - name: delete_principal
+  description: Deletes a principal's (user's) access to a specific merchant. This operation requires Admin
+    access for the merchant.
   category: access-control
   read_only: false
   destructive: true
@@ -213,8 +232,13 @@ tools:
   parameters:
   - email
   - merchantId
-  description: Deletes a principal's (user's) access to a specific merchant. This operation requires Admin
-    access for the merchant.
+- name: list_payment_profiles
+  description: Lists the payments profiles that the authenticated user has access to, including the legal
+    entity details and whether each profile is already associated with a merchant.
+- name: associate_payment_profile
+  description: Associates a payments profile with a specific merchant, or replaces the merchant's currently
+    associated payments profile. The payments profile must not be associated with another merchant and
+    its region code must match the merchant's region code.
 annotations_note: 'Every tool ships MCP annotations (readOnlyHint / destructiveHint / idempotentHint /
   openWorldHint). 10 of 13 are read-only; set_principal_role and delete_principal are the two tools Google
   flags destructiveHint: true. That is a machine-readable consequence signal most MCP servers in this
@@ -259,3 +283,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 16
