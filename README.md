@@ -1,4 +1,4 @@
-# Google Pay API (google-pay)
+# Google Pay
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,65 +64,144 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Google Pay APIs enable payment processing and digital wallet functionality for apps and websites
+Google Pay is Google's digital wallet and payment surface, exposed to developers as a family of distinct APIs rather than one endpoint. The Google Pay API for Web and Android is a client-side payment sheet that returns a signed, ECIES-encrypted payment token for a merchant's gateway to decrypt; the Google Wallet API is a REST service on walletobjects.googleapis.com for issuing loyalty cards, event tickets, boarding passes, transit tickets, gift cards and offers; Google Standard Payments carries the integrator APIs for issuers and PSPs; and the Google Pay & Wallet Developer MCP server gives AI coding agents live access to merchant profiles, integration status and the official documentation.
 
-**URL:** [Visit APIs.json URL](https://developers.google.com/pay/api)
+**Areas:** Agentic Commerce · Checkout · Contactless Payments · Digital Wallet · Merchants · Mobile Payments · Payments · Tokenization
 
-## Tags:
+## Google Pay on APIs.io
 
- - payments, digital wallet, mobile payments, contactless payments
+Everything profiled for Google Pay is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/google-pay/](https://apis.io/providers/google-pay/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (9)
 
-- **Created:** 2024 
-- **Modified:** 2024 
+- [Google Pay API](https://apis.io/apis/google-pay/google-pay-api/) — Enables integration of the Google Pay payment method into web applications, allowing merchants to accept payments from cards saved to Google Accounts. The…
+- [Google Pay API for Android](https://apis.io/apis/google-pay/google-pay-api-for-android/) — Enables integration of Google Pay into Android applications, allowing users to pay with cards saved to their Google Account. The API provides methods to…
+- [Google Wallet API](https://apis.io/apis/google-pay/google-wallet-api/) — APIs for creating and managing digital passes for Google Wallet, including loyalty cards, event tickets, boarding passes, transit tickets, gift cards,…
+- [Google Pay Facilitated Transaction Event API](https://apis.io/apis/google-pay/google-pay-facilitated-transaction-event-api/) — Provides services hosted by Google for processing facilitated payment events as part of Google Standard Payments. Payment integrators use this API to report…
+- [Google Pay Virtual Cards API](https://apis.io/apis/google-pay/google-pay-virtual-cards-api/) — Enables payment integrators to enroll cards, retrieve virtual card numbers, manage transactions, and handle authentication challenges for virtual card…
+- [Google Pay Push Provisioning API](https://apis.io/apis/google-pay/google-pay-push-provisioning-api/) — Allows card issuers to provision payment cards directly into Google Pay and Google Wallet from their own applications. Issuers can set default payment…
+- [Google Pay Payment Card Recognition API](https://apis.io/apis/google-pay/google-pay-payment-card-recognition-api/) — Enables Android applications to scan credit and debit cards using the device camera to extract card number and expiration date through on-device optical…
+- [Google Pay India Merchant SDK](https://apis.io/apis/google-pay/google-pay-india-merchant-sdk/) — A toolkit for developers in India to integrate their Android, iOS, and web applications with Google Pay for accepting UPI and card-based payments. Supports…
+- [Google Universal Commerce Protocol](https://apis.io/apis/google-pay/google-universal-commerce-protocol/) — A standard for securely and efficiently exchanging commerce data between merchant and platform systems to enable checkout experiences directly on Google…
 
-## APIs
+### Published properties
 
-### Google Pay API
-Enables integration of Google Pay payment method into mobile apps and websites
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**Human URL:** [https://developers.google.com/pay](https://developers.google.com/pay)
+#### MCP servers (1)
 
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags:
+- [Google Pay & Wallet Developer MCP server](https://apis.io/servers/google-pay/google-pay-wallet-developer-mcp-server/)
 
- - payments, checkout, wallet
+#### JSON Schema (1)
 
-#### Properties
+The data models the API reads and writes.
 
+- [Google Pay Payment Handler Configuration](https://apis.io/schemas/google-pay/google-pay-ucp-payment-handler-config/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Google Pay Authentication](https://apis.io/security/google-pay/google-pay-authentication/)
+- [Google Pay Domain Security](https://apis.io/security/google-pay/google-pay-domain-security/)
+- [Google Pay Vulnerability Disclosure](https://apis.io/security/google-pay/google-pay-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Google Pay Scopes](https://apis.io/scopes/google-pay/google-pay-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Google Pay Plans Pricing](https://apis.io/plans/google-pay/google-pay-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Google Pay Rate Limits](https://apis.io/rate-limits/google-pay/google-pay-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Google Pay Finops](https://apis.io/finops/google-pay/google-pay-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.google.com/)
 - [Documentation](https://developers.google.com/pay/api/web)
-- [OpenAPI](https://developers.google.com/pay/api/web/reference/rest)
-- [Authentication](https://developers.google.com/pay/api/web/guides/setup)
-- [Errors](https://developers.google.com/pay/api/web/reference/error-codes)
-- [Sandbox](https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist)
+- [Getting started](https://developers.google.com/pay/api/web/guides/tutorial)
+- [API reference](https://developers.google.com/pay/api/web/reference/client)
+- [Pricing](https://developers.google.com/pay/api/faq)
+- [Sign up](https://pay.google.com/business/console/)
+- [Support](https://developers.google.com/pay/api/web/support/troubleshooting)
+- [Changelog](https://developers.google.com/pay/api/web/support/release-notes)
+- [Blog](https://developers.googleblog.com/)
+- [Security](https://g.co/vrp)
+- [Terms of service](https://payments.developers.google.com/terms/sellertos)
+- [Privacy policy](https://policies.google.com/privacy)
+- [GitHub](https://github.com/google-pay)
+- [Status](https://developers.google.com/pay/api/status)
 
-### Google Wallet API
-APIs for creating and managing passes for Google Wallet
+## API Evangelist rating
 
-**Human URL:** [https://developers.google.com/wallet](https://developers.google.com/wallet)
+**Kin Score 49.8** — developing · rubric 0.25.0 · scored 2026-10-23
 
+| Facet | Score |
+|---|---|
+| Discoverability | 86.7 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 65.8 |
+| Developer ergonomics | 73.2 |
+| Access clarity | 65.8 |
 
-#### Tags:
+**Agent readiness 21.4** — agent-aware
 
- - wallet, passes, loyalty, tickets
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | platform (partial credit) |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
 
-#### Properties
+**Regulatory alignment 36.6** — Payments
 
-- [Documentation](https://developers.google.com/wallet/generic/rest)
-- [OpenAPI](https://developers.google.com/wallet/generic/rest/v1)
-- [Authentication](https://developers.google.com/wallet/generic/rest/prerequisites)
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/google-pay/](https://apis.io/providers/google-pay/).
 
-## Common Properties
+## How this profile is made
 
-- [Brand Guidelines](https://developers.google.com/pay/api/web/guides/brand-guidelines)
-- [Terms of Service](https://payments.developers.google.com/terms/sellertos)
-- [Privacy Policy](https://policies.google.com/privacy)
-- [Getting Started](https://developers.google.com/pay/api/web/guides/tutorial)
-- [SDK](https://developers.google.com/pay/api/web/guides/resources)
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-## Maintainers
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Google Pay: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-**FN:** Google
+## Open an issue
 
-**Email:** google-pay-api-support@google.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/google-pay/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
