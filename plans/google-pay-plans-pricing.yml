@@ -1,0 +1,40 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://developers.google.com/pay/api/faq
+sources:
+- https://developers.google.com/pay/api/faq
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T161713
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: free
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+published: false
+note: FAQ page, not a pricing page; states no additional fees charged for using the Google Pay API. No
+  numeric prices shown.
+plan_count: 1
+plans:
+- name: Google Pay API
+  price_text: Google Pay doesn't additionally charge users, merchants, and developers additional fees
+    to use the Google Pay API for payments.
+  period: none
+  overage: Merchants, specifically, continue to pay processing fees to their payment processor.
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - metered
+  units: []
+  plans:
+  - name: Google Pay API
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - none
