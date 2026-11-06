@@ -2,6 +2,7 @@
 generated: '2026-10-28'
 method: searched
 source: https://developers.google.com/pay/api/faq
+name: Google Pay API Plans
 sources:
 - https://developers.google.com/pay/api/faq
 provenance:
@@ -25,7 +26,7 @@ plans:
   period: none
   overage: Merchants, specifically, continue to pay processing fees to their payment processor.
 x-canonical:
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - metered
