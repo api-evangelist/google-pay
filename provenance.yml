@@ -8,6 +8,12 @@ artifacts:
   authentication/google-pay-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/google-pay-changelog.yml:
     method: searched
     evidence: declared in the artifact
@@ -26,6 +32,12 @@ artifacts:
   discovery/google-pay-walletobjects-v1-discovery.json:
     method: unknown
     evidence: no authorship recorded
+  eligibility/google-pay-eligibility.yml:
+    method: harvested
+    evidence: declared in the artifact
+  errors/google-pay-error-codes.yml:
+    method: searched
+    evidence: declared in the artifact
   errors/google-pay-problem-types.yml:
     method: searched
     evidence: declared in the artifact
@@ -41,6 +53,9 @@ artifacts:
   heartbeat/2026-11-06.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-13.yml:
+    method: unknown
+    evidence: no authorship recorded
   hosts/google-pay-hosts.yml:
     method: derived
     evidence: declared in the artifact
@@ -53,16 +68,76 @@ artifacts:
   json-ld/google-pay-context.jsonld:
     method: unknown
     evidence: no authorship recorded
+  json-schema/google-pay-add-message-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/google-pay-event-ticket-class-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/google-pay-flight-class-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/google-pay-generic-class-add-message-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-generic-class-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-generic-class-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-generic-object-add-message-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-generic-object-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-generic-object-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-gift-card-class-add-message-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-gift-card-class-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-gift-card-class-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-gift-card-object-add-message-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-gift-card-object-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-gift-card-object-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-issuer-list-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-issuer-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/google-pay-loyalty-class-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/google-pay-media-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/google-pay-offer-class-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-permissions-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-set-pass-update-notice-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-set-pass-update-notice-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-smart-tap-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/google-pay-transit-class-schema.json:
@@ -71,13 +146,19 @@ artifacts:
   json-schema/google-pay-transit-object-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/google-pay-transit-object-upload-rotating-barcode-values-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/google-pay-transit-object-upload-rotating-barcode-values-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/google-pay-ucp-payment-handler-config.json:
     method: unknown
     evidence: no authorship recorded
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -143,6 +224,9 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/google-pay-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -161,69 +245,70 @@ artifacts:
   mcp/google-pay-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
+  openapi/_original/google-pay-wallet-openapi.yml:
+    method: harvested
+    evidence: fetched from https://walletobjects.googleapis.com/$discovery/rest?version=v1 (recorded in
+      the document)
   openapi/google-pay-eventticketclass-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-eventticketobject-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-flightclass-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-flightobject-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-genericclass-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-genericobject-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-giftcardclass-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-giftcardobject-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-issuer-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-jwt-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-loyaltyclass-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-loyaltyobject-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-media-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-offerclass-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-offerobject-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-permissions-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-smarttap-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-transitclass-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-transitobject-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/google-pay-wallet-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/google-pay-walletobjects-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   packages/google-pay-packages.yml:
     method: searched
     evidence: declared in the artifact
@@ -232,6 +317,9 @@ artifacts:
     evidence: declared in the artifact
   plans/google-pay-plans-pricing.yml:
     method: searched
+    evidence: declared in the artifact
+  privacy/google-pay-privacy-policy.yml:
+    method: harvested
     evidence: declared in the artifact
   rate-limits/google-pay-rate-limits.yml:
     method: searched
@@ -262,6 +350,9 @@ artifacts:
     evidence: declared in the artifact
   skills/google-pay-wallet-pass-inventory.md:
     method: generated
+    evidence: declared in the artifact
+  terms/google-pay-terms-of-service.yml:
+    method: harvested
     evidence: declared in the artifact
   vendors/google-pay-vendors.yml:
     method: unknown

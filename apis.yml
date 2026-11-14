@@ -1,13 +1,10 @@
 aid: google-pay
-
 name: Google Pay
-
 description: Google Pay is Google's digital wallet and payment surface, exposed to developers as a family of distinct APIs rather than one endpoint.
   The Google Pay API for Web and Android is a client-side payment sheet that returns a signed, ECIES-encrypted payment token for a merchant's
   gateway to decrypt; the Google Wallet API is a REST service on walletobjects.googleapis.com for issuing loyalty cards, event tickets, boarding
   passes, transit tickets, gift cards and offers; Google Standard Payments carries the integrator APIs for issuers and PSPs; and the Google Pay
   & Wallet Developer MCP server gives AI coding agents live access to merchant profiles, integration status and the official documentation.
-
 deliveryModel:
   model: saas
   open_source: false
@@ -19,7 +16,6 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
-
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -38,20 +34,14 @@ accessModel:
   - rate-limits
   - security
   - sandbox
-  generated: '2026-11-06'
+  generated: '2026-11-13'
   method: derived
 image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
-
 url: https://developers.google.com/pay/api
-
 created: '2024-01-01'
-
 modified: '2026-09-12'
-
 specificationVersion: '0.23'
-
 type: Index
-
 tags:
 - Agentic Commerce
 - Checkout
@@ -61,12 +51,12 @@ tags:
 - Mobile Payments
 - Payments
 - Tokenization
-
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
-
 common:
+- type: ErrorCatalog
+  url: errors/google-pay-error-codes.yml
 - type: AgenticAccess
   url: agentic-access/google-pay-agentic-access.yml
 - type: Spectral
@@ -165,13 +155,16 @@ common:
   url: plans/google-pay-plans-pricing.yml
 - type: FinOps
   url: finops/google-pay-finops.yml
-
+- type: UsageTerms
+  url: terms/google-pay-terms-of-service.yml
+- type: DataProcessing
+  url: privacy/google-pay-privacy-policy.yml
+- type: Eligibility
+  url: eligibility/google-pay-eligibility.yml
 apis:
 - name: Google Pay API
-  description: >-
-    Enables integration of the Google Pay payment method into web applications, allowing merchants to
-    accept payments from cards saved to Google Accounts. The API provides JavaScript client methods for
-    implementing a seamless checkout experience on websites.
+  description: Enables integration of the Google Pay payment method into web applications, allowing merchants to accept payments from cards saved
+    to Google Accounts. The API provides JavaScript client methods for implementing a seamless checkout experience on websites.
   image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
   humanURL: https://developers.google.com/pay
   baseURL: https://pay.google.com/gp/v/
@@ -203,10 +196,8 @@ apis:
     url: https://twitter.com/googlepay
   aid: google-pay:google-pay-api
 - name: Google Pay API for Android
-  description: >-
-    Enables integration of Google Pay into Android applications, allowing users to pay with cards saved
-    to their Google Account. The API provides methods to check payment readiness and load payment data
-    for seamless in-app checkout experiences.
+  description: Enables integration of Google Pay into Android applications, allowing users to pay with cards saved to their Google Account. The
+    API provides methods to check payment readiness and load payment data for seamless in-app checkout experiences.
   image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
   humanURL: https://developers.google.com/pay/api/android/overview
   baseURL: https://pay.google.com/gp/v/
@@ -227,14 +218,11 @@ apis:
   - type: ChangeLog
     url: https://developers.google.com/pay/api/android/support/release-notes
   - type: Sandbox
-    url: >-
-      https://developers.google.com/pay/api/android/guides/test-and-deploy/integration-checklist
+    url: https://developers.google.com/pay/api/android/guides/test-and-deploy/integration-checklist
   aid: google-pay:google-pay-api-for-android
 - name: Google Pay Facilitated Transaction Event API
-  description: >-
-    Provides services hosted by Google for processing facilitated payment events as part of Google Standard
-    Payments. Payment integrators use this API to report and manage transaction events within the Google
-    payments ecosystem.
+  description: Provides services hosted by Google for processing facilitated payment events as part of Google Standard Payments. Payment integrators
+    use this API to report and manage transaction events within the Google payments ecosystem.
   image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
   humanURL: https://developers.google.com/standard-payments
   baseURL: https://pay.google.com/
@@ -251,10 +239,8 @@ apis:
     url: https://developers.google.com/standard-payments
   aid: google-pay:google-pay-facilitated-transaction-event-api
 - name: Google Pay Virtual Cards API
-  description: >-
-    Enables payment integrators to enroll cards, retrieve virtual card numbers, manage transactions, and
-    handle authentication challenges for virtual card payments. Used by issuers and payment service providers
-    to support virtual card number generation and lifecycle management.
+  description: Enables payment integrators to enroll cards, retrieve virtual card numbers, manage transactions, and handle authentication challenges
+    for virtual card payments. Used by issuers and payment service providers to support virtual card number generation and lifecycle management.
   image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
   humanURL: https://developers.google.com/pay/virtual-cards-v1/payment-integrator-virtual-cards-api
   baseURL: https://pay.google.com/
@@ -269,10 +255,8 @@ apis:
     url: https://developers.google.com/pay/virtual-cards-v1/google-virtual-cards-api
   aid: google-pay:google-pay-virtual-cards-api
 - name: Google Pay Push Provisioning API
-  description: >-
-    Allows card issuers to provision payment cards directly into Google Pay and Google Wallet from their
-    own applications. Issuers can set default payment tokens, manage token lifecycle, and enable push
-    provisioning flows for their cardholders.
+  description: Allows card issuers to provision payment cards directly into Google Pay and Google Wallet from their own applications. Issuers
+    can set default payment tokens, manage token lifecycle, and enable push provisioning flows for their cardholders.
   image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
   humanURL: https://developers.google.com/pay/issuers/apis/push-provisioning/server
   baseURL: https://pay.google.com/
@@ -288,10 +272,9 @@ apis:
     url: https://developers.google.com/pay/issuers/overview/get-started
   aid: google-pay:google-pay-push-provisioning-api
 - name: Google Pay Payment Card Recognition API
-  description: >-
-    Enables Android applications to scan credit and debit cards using the device camera to extract card
-    number and expiration date through on-device optical character recognition. Processing occurs entirely
-    on-device via Google Play Services without requiring camera permissions in the app.
+  description: Enables Android applications to scan credit and debit cards using the device camera to extract card number and expiration date
+    through on-device optical character recognition. Processing occurs entirely on-device via Google Play Services without requiring camera permissions
+    in the app.
   image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
   humanURL: https://developers.google.com/pay/api/android/overview
   baseURL: https://pay.google.com/
@@ -305,10 +288,8 @@ apis:
     url: https://developers.google.com/pay/api/android/overview
   aid: google-pay:google-pay-payment-card-recognition-api
 - name: Google Pay India Merchant SDK
-  description: >-
-    A toolkit for developers in India to integrate their Android, iOS, and web applications with Google
-    Pay for accepting UPI and card-based payments. Supports merchant onboarding, payment initiation, and
-    transaction status verification through the Google Pay for Business program.
+  description: A toolkit for developers in India to integrate their Android, iOS, and web applications with Google Pay for accepting UPI and card-based
+    payments. Supports merchant onboarding, payment initiation, and transaction status verification through the Google Pay for Business program.
   image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
   humanURL: https://developers.google.com/pay/india/api
   baseURL: https://pay.google.com/
@@ -328,10 +309,8 @@ apis:
     url: https://developers.google.com/pay/india/api/merchant-sdk/guides/setup
   aid: google-pay:google-pay-india-merchant-sdk
 - name: Google Universal Commerce Protocol
-  description: >-
-    A standard for securely and efficiently exchanging commerce data between merchant and platform systems
-    to enable checkout experiences directly on Google surfaces including Search and Gemini. Merchants
-    implement REST endpoints for session creation, updates, and completion.
+  description: A standard for securely and efficiently exchanging commerce data between merchant and platform systems to enable checkout experiences
+    directly on Google surfaces including Search and Gemini. Merchants implement REST endpoints for session creation, updates, and completion.
   image: https://developers.google.com/pay/api/images/brand-guidelines/google-pay-mark.png
   humanURL: https://developers.google.com/merchant/ucp
   baseURL: https://pay.google.com/
@@ -371,17 +350,7 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
     url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-eventticketobject-api
   name: Google Pay Eventticketobject API
   description: The eventticketobject API from Google Pay — 4 operation(s) for eventticketobject.
@@ -407,17 +376,7 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
     url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-flightclass-api
   name: Google Pay Flightclass API
   description: The flightclass API from Google Pay — 3 operation(s) for flightclass.
@@ -444,16 +403,6 @@ apis:
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
     url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-flightobject-api
   name: Google Pay Flightobject API
   description: The flightobject API from Google Pay — 3 operation(s) for flightobject.
@@ -480,16 +429,6 @@ apis:
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
     url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-genericclass-api
   name: Google Pay Genericclass API
   description: The genericclass API from Google Pay — 3 operation(s) for genericclass.
@@ -515,17 +454,13 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
+    url: json-schema/google-pay-generic-class-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
+    url: json-schema/google-pay-generic-class-list-response-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
+    url: json-schema/google-pay-generic-class-add-message-response-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-add-message-request-schema.json
 - aid: google-pay:google-pay-genericobject-api
   name: Google Pay Genericobject API
   description: The genericobject API from Google Pay — 3 operation(s) for genericobject.
@@ -551,17 +486,13 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
+    url: json-schema/google-pay-generic-object-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
+    url: json-schema/google-pay-generic-object-list-response-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
+    url: json-schema/google-pay-generic-object-add-message-response-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-add-message-request-schema.json
 - aid: google-pay:google-pay-giftcardclass-api
   name: Google Pay Giftcardclass API
   description: The giftcardclass API from Google Pay — 3 operation(s) for giftcardclass.
@@ -587,17 +518,13 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
+    url: json-schema/google-pay-gift-card-class-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
+    url: json-schema/google-pay-gift-card-class-list-response-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
+    url: json-schema/google-pay-add-message-request-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-gift-card-class-add-message-response-schema.json
 - aid: google-pay:google-pay-giftcardobject-api
   name: Google Pay Giftcardobject API
   description: The giftcardobject API from Google Pay — 3 operation(s) for giftcardobject.
@@ -623,17 +550,13 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
+    url: json-schema/google-pay-gift-card-object-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
+    url: json-schema/google-pay-gift-card-object-list-response-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
+    url: json-schema/google-pay-add-message-request-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-gift-card-object-add-message-response-schema.json
 - aid: google-pay:google-pay-issuer-api
   name: Google Pay Issuer API
   description: The issuer API from Google Pay — 2 operation(s) for issuer.
@@ -661,17 +584,9 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
+    url: json-schema/google-pay-issuer-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-issuer-list-response-schema.json
 - aid: google-pay:google-pay-jwt-api
   name: Google Pay JWT API
   description: The jwt API from Google Pay — 2 operation(s) for jwt.
@@ -735,17 +650,7 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
     url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-loyaltyobject-api
   name: Google Pay Loyaltyobject API
   description: The loyaltyobject API from Google Pay — 4 operation(s) for loyaltyobject.
@@ -771,17 +676,7 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
     url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-media-api
   name: Google Pay Media API
   description: The media API from Google Pay — 2 operation(s) for media.
@@ -809,17 +704,11 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
+    url: json-schema/google-pay-media-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
+    url: json-schema/google-pay-transit-object-upload-rotating-barcode-values-request-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-transit-object-upload-rotating-barcode-values-response-schema.json
 - aid: google-pay:google-pay-offerclass-api
   name: Google Pay Offerclass API
   description: The offerclass API from Google Pay — 3 operation(s) for offerclass.
@@ -844,16 +733,6 @@ apis:
     url: https://developers.google.com/wallet/docs/release-notes
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
-  - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
   - type: JSONSchema
     url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-offerobject-api
@@ -880,16 +759,6 @@ apis:
     url: https://developers.google.com/wallet/docs/release-notes
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
-  - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
   - type: JSONSchema
     url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-permissions-api
@@ -919,17 +788,7 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-permissions-schema.json
 - aid: google-pay:google-pay-smarttap-api
   name: Google Pay Smarttap API
   description: The smarttap API from Google Pay — 1 operation(s) for smarttap.
@@ -955,17 +814,7 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-smart-tap-schema.json
 - aid: google-pay:google-pay-transitclass-api
   name: Google Pay Transitclass API
   description: The transitclass API from Google Pay — 3 operation(s) for transitclass.
@@ -991,17 +840,7 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
     url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-transitobject-api
   name: Google Pay Transitobject API
   description: The transitobject API from Google Pay — 3 operation(s) for transitobject.
@@ -1027,17 +866,9 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
     url: json-schema/google-pay-transit-class-schema.json
   - type: JSONSchema
     url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
 - aid: google-pay:google-pay-walletobjects-api
   name: Google Pay Walletobjects API
   description: The walletobjects API from Google Pay — 1 operation(s) for walletobjects.
@@ -1063,23 +894,13 @@ apis:
   - type: Client Libraries
     url: https://developers.google.com/wallet/generic/resources/libraries
   - type: JSONSchema
-    url: json-schema/google-pay-flight-class-schema.json
+    url: json-schema/google-pay-set-pass-update-notice-request-schema.json
   - type: JSONSchema
-    url: json-schema/google-pay-event-ticket-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-transit-object-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-loyalty-class-schema.json
-  - type: JSONSchema
-    url: json-schema/google-pay-offer-class-schema.json
+    url: json-schema/google-pay-set-pass-update-notice-response-schema.json
 x-enrichment:
-  date: '2026-11-04'
+  date: '2026-11-12'
   status: enriched
-  artifacts_added: 14
+  artifacts_added: 1
   pass: local-v6
-
 x-parent: google
-
 x-relationship: product
