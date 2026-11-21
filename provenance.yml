@@ -56,6 +56,9 @@ artifacts:
   heartbeat/2026-11-13.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-20.yml:
+    method: unknown
+    evidence: no authorship recorded
   hosts/google-pay-hosts.yml:
     method: derived
     evidence: declared in the artifact
@@ -158,7 +161,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-06T143934.yml:
+  kin/checks-2026-11-13T214628.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -225,6 +228,9 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-13T214628.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/google-pay-lifecycle.yml:
@@ -309,6 +315,66 @@ artifacts:
   openapi/google-pay-walletobjects-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/google-pay-eventticketclass-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-eventticketobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-flightclass-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-flightobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-genericclass-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-genericobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-giftcardclass-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-giftcardobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-issuer-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-jwt-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-loyaltyclass-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-loyaltyobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-media-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-offerclass-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-offerobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-permissions-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-smarttap-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-transitclass-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-transitobject-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/google-pay-walletobjects-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   packages/google-pay-packages.yml:
     method: searched
     evidence: declared in the artifact
